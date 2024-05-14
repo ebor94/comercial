@@ -1,4 +1,6 @@
 import './App.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 import OrderItem from './components/OrderItem';
 import OrderTotal from './components/OrderTotal';
 import ConfirmButton from './components/ConfirmButton';
