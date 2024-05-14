@@ -1,0 +1,15 @@
+/* ConfirmButton.css */
+.confirm-button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 25px; /* Hace que el botón sea redondeado */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .confirm-button:hover {
+    background-color: darkred; /* Color al pasar el ratón */
+  }

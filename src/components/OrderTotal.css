@@ -1,0 +1,25 @@
+/* src/components/OrderTotal.css */
+.order-total {
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+    margin-top: 20px;
+  }
+  
+  .order-total-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+  }
+  
+  .order-total-row.total {
+    font-weight: bold;
+  }
+  
+  .label {
+    font-weight: 600;
+  }
+  
+  .value {
+    font-size: 1.1em;
+  }
+  
