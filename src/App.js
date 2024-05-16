@@ -11,19 +11,22 @@ const App = () => {
 
   const [responseData, setResponseData] = useState([]);
   const [cotizacion, setCotizacion] = useState(0);
+  const [phoneNumber, setphoneNumber] = useState('');
+  const [phoneNumberSeller, setphoneNumberSeller] = useState('');
+  const [seller, setSeller] = useState('');
 
   useEffect(() => {
     const postData = async () => {
       // Datos que vamos a enviar en el cuerpo de la solicitud
       const raw = JSON.stringify({
-        "LCODIGO": "0010511306",
+        "LCODIGO": "0010513436",
         "LTIPO": "C",
         "TPROCESO": "S",
         "PCODSOLICITANTE": "",
         "PHANDLE": "",
         "FECHAINI": "",
         "FECHAFIN": "",
-        "cte": "0000141387"
+        "cte": "0000109476"
       });
 
       try {
@@ -39,6 +42,9 @@ const App = () => {
         // Obteniendo los datos de la respuesta
         const result = await response.json();
         setCotizacion(result[0].pedido)
+        setphoneNumber(result[0].telf1)
+        setSeller(result[0].vended)
+        setphoneNumberSeller(result[0].telfvend)
         setResponseData(result); // Actualizando el estado con los datos de la respuesta
       } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
@@ -73,7 +79,10 @@ const App = () => {
       </div>
       <OrderTotal items={responseData} taxRate={taxRate} />
       <div className="app-container">
-      <ConfirmButton cotizacion={cotizacion}/>
+      <ConfirmButton
+       cotizacion={cotizacion}
+       phoneNumber={phoneNumber} 
+       phoneNumberSeller={phoneNumberSeller} />
     </div>
     </div>
     

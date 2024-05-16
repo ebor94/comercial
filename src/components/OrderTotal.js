@@ -4,7 +4,8 @@ import './OrderTotal.css';
 
 const OrderTotal = ({ items, taxRate }) => {
   const calculateSubtotal = () => {
-    return items.reduce((sum, item) => sum + item.vneto * item.cntped, 0);
+   // return items.reduce((sum, item) => sum + item.vneto * item.cntped, 0);
+   return items.reduce((sum, item) => sum + item.vneto, 0);
   };
 
   const subtotal = calculateSubtotal();

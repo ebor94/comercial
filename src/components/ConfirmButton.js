@@ -2,16 +2,44 @@ import React, { useState } from 'react';
 import './ConfirmButton.css';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-const ConfirmButton = ({cotizacion}) => {
+const ConfirmButton = ({cotizacion, phoneNumber,  phoneNumberSeller}) => {
 
-    const [show, setShow] = useState(false);
-
+  const [show, setShow] = useState(false);
+  const [code, setCode] = useState('');
+  const [codeInput, setcodeInput] = useState('');
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
-    const handleClick = (message) => {
-        handleShow();
-      };
+   
+  const handleClick =   (message) => {
+    const pin = Math.floor(Math.random() * 10000);
+    let textPin = pin.toString();
+    let textAproved = `Codigo de aprobacion ${textPin} para la cotizacion ${message}`
+    setCode(textPin)
+    sendMessage("3165217418",textAproved)    
+    handleShow();
+  };
+  const sendMessage = async(phoneNumber, message) =>{
+   const raw = JSON.stringify({ "phoneNumber": phoneNumber, "message": message, platform:"W"  })
+   fetch("https://lilix.ceramicaitalia.com:3001/mensajeria", {method: "POST", headers: {'Content-Type': 'application/json'}, body : raw})
+    .then((response) => response.text())
+    .then((result) => console.log(result))
+    .catch((error) => console.error(error));    
+  }
+
+  const handleClickConfirmCode = (code,codeInput) => {
+    console.log(code,codeInput)
+    let codeI =  codeInput.trim()
+    if(codeI === code){
+      handleClose();
+      let aprobacion = `se aprobó la cotizacion ${cotizacion} con codigo se seguridad ${code} `
+      sendMessage(phoneNumberSeller,aprobacion)  
+      alert('codigo correcto')
+    }else{
+      alert('codigo incorrecto')
+    }
+    
+  }
 
 
   return (
@@ -19,28 +47,33 @@ const ConfirmButton = ({cotizacion}) => {
     <button   className="confirm-button" onClick={() => handleClick(cotizacion)}>
     Confirmar Cotizacion
   </button>
-  <Modal show={show} onHide={handleClose}>
+  <Modal 
+    show={show}
+    onHide={handleClose}
+    backdrop="static"
+    size="sm"
+    centered
+    >
         <Modal.Header closeButton>
-          <Modal.Title>Modal de Ejemplo</Modal.Title>
+          <Modal.Title>Cofirmacion</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
+          <Form >
             <Form.Group controlId="formBasicEmail">
-              <Form.Label>Correo Electrónico</Form.Label>
-              <Form.Control type="email" placeholder="Ingresa tu correo" />
+              <Form.Label><b>Ingrese El codigo enviado a {phoneNumber}</b></Form.Label>
+              <Form.Control 
+                type="text"
+                placeholder="Codigo de Cofirmacion"
+                autoFocus
+                onChange={(e) => setcodeInput(e.target.value)}               
+                
+              />
             </Form.Group>
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Contraseña</Form.Label>
-              <Form.Control type="password" placeholder="Contraseña" />
-            </Form.Group>
-          </Form>
+         </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Cerrar
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Guardar Cambios
+          <Button  variant="danger" onClick={() => handleClickConfirmCode(code,codeInput)}>
+            Confirmar
           </Button>
         </Modal.Footer>
       </Modal>
