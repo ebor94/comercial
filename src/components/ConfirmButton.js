@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import './ConfirmButton.css';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-const ConfirmButton = ({cotizacion, phoneNumber,  phoneNumberSeller}) => {
+const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller}) => {
 
   const [show, setShow] = useState(false);
   const [code, setCode] = useState('');
-  const [codeInput, setcodeInput] = useState('');
+  const [codeInput, setCodeInput] = useState('');
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
@@ -14,9 +14,9 @@ const ConfirmButton = ({cotizacion, phoneNumber,  phoneNumberSeller}) => {
   const handleClick =   (message) => {
     const pin = Math.floor(Math.random() * 10000);
     let textPin = pin.toString();
-    let textAproved = `Codigo de aprobacion ${textPin} para la cotizacion ${message}`
+    let textApproved = `Token ${textPin} for the quote ${message}`
     setCode(textPin)
-    sendMessage("3165217418",textAproved)    
+    sendMessage("3165217418",textApproved)    
     handleShow();
   };
   const sendMessage = async(phoneNumber, message) =>{
@@ -32,11 +32,11 @@ const ConfirmButton = ({cotizacion, phoneNumber,  phoneNumberSeller}) => {
     let codeI =  codeInput.trim()
     if(codeI === code){
       handleClose();
-      let aprobacion = `se aprobó la cotizacion ${cotizacion} con codigo se seguridad ${code} `
-      sendMessage(phoneNumberSeller,aprobacion)  
-      alert('codigo correcto')
+      let messageApproved = `se Approved la quote ${offer} with token ${code} `;
+      sendMessage(phoneNumberSeller,messageApproved);  
+      alert('code true');
     }else{
-      alert('codigo incorrecto')
+      alert('code false');
     }
     
   }
@@ -44,7 +44,7 @@ const ConfirmButton = ({cotizacion, phoneNumber,  phoneNumberSeller}) => {
 
   return (
     <>
-    <button   className="confirm-button" onClick={() => handleClick(cotizacion)}>
+    <button   className="confirm-button" onClick={() => handleClick(offer)}>
     Confirmar Cotizacion
   </button>
   <Modal 
@@ -65,7 +65,7 @@ const ConfirmButton = ({cotizacion, phoneNumber,  phoneNumberSeller}) => {
                 type="text"
                 placeholder="Codigo de Cofirmacion"
                 autoFocus
-                onChange={(e) => setcodeInput(e.target.value)}               
+                onChange={(e) => setCodeInput(e.target.value)}               
                 
               />
             </Form.Group>
@@ -73,7 +73,7 @@ const ConfirmButton = ({cotizacion, phoneNumber,  phoneNumberSeller}) => {
         </Modal.Body>
         <Modal.Footer>
           <Button  variant="danger" onClick={() => handleClickConfirmCode(code,codeInput)}>
-            Confirmar
+            Confirm
           </Button>
         </Modal.Footer>
       </Modal>
