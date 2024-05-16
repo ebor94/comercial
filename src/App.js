@@ -13,7 +13,7 @@ const App = () => {
   const [cotizacion, setCotizacion] = useState(0);
   const [phoneNumber, setphoneNumber] = useState('');
   const [phoneNumberSeller, setphoneNumberSeller] = useState('');
-  const [seller, setSeller] = useState('');
+  //const [seller, setSeller] = useState('');
 
   useEffect(() => {
     const postData = async () => {
@@ -43,7 +43,7 @@ const App = () => {
         const result = await response.json();
         setCotizacion(result[0].pedido)
         setphoneNumber(result[0].telf1)
-        setSeller(result[0].vended)
+       // setSeller(result[0].vended)
         setphoneNumberSeller(result[0].telfvend)
         setResponseData(result); // Actualizando el estado con los datos de la respuesta
       } catch (error) {
