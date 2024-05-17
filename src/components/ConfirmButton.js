@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './ConfirmButton.css';
 import { Modal, Button, Form } from 'react-bootstrap';
 
-const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller}) => {
+const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfirm}) => {
 
   const [show, setShow] = useState(false);
   const [code, setCode] = useState('');
@@ -44,7 +44,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller}) => {
 
   return (
     <>
-    <button   className="confirm-button" onClick={() => handleClick(offer)}>
+    <button   className={colorButtonConfirm} onClick={() => handleClick(offer)}>
     Confirmar Cotizacion
   </button>
   <Modal 

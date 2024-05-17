@@ -14,6 +14,7 @@ const App = () => {
   const [phoneNumber, setphoneNumber] = useState('');
   const [phoneNumberSeller, setphoneNumberSeller] = useState('');
   const [customer, setCustomer] = useState('');
+  const [colorButtonConfirm, setcolorButtonConfirm] = useState('confirm-button');
 
   useEffect(() => {
     const postData = async () => {
@@ -60,6 +61,10 @@ const App = () => {
 
   const taxRate = 0.19; 
 
+  const handleColorChange = (newColor) => {
+    setcolorButtonConfirm(newColor);
+  };
+
   return (
     <>
     <div className="App">
@@ -71,6 +76,7 @@ const App = () => {
       <h4 className='name-customer'>{customer}</h4> 
       <div className="order-list">
         {responseData.map((data, index) => (
+          
           <OrderItem
             key={index}
             image={`https://web.ceramicaitalia.com/temporada/${data.materi}.jpg`}
@@ -78,15 +84,23 @@ const App = () => {
             quantity={data.cntped}
             price={data.precio}
             totalPos={data.vneto}
+            pvp ={data.pvp}
           />
         ))}
       </div>
-      <OrderTotal items={responseData} taxRate={taxRate} />
+      <OrderTotal 
+        items={responseData}
+        taxRate={taxRate}
+        onValueChange={handleColorChange} 
+        
+       />
       <div className="app-container">
       <ConfirmButton
        offer={offer}
        phoneNumber={phoneNumber} 
-       phoneNumberSeller={phoneNumberSeller} />
+       phoneNumberSeller={phoneNumberSeller} 
+       colorButtonConfirm={colorButtonConfirm}/>
+      
     </div>
     </div>
     
