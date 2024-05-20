@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import '../assets/css/ConfirmButton.css';
+import '../../assets/css/ConfirmButton.css';
 import { Modal, Button, Form } from 'react-bootstrap';
 
 const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfirm}) => {
@@ -45,7 +45,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
   return (
     <>
     <button   className={colorButtonConfirm} onClick={() => handleClick(offer)}>
-    Confirmar Cotizacion
+    Aprobacion comercial
   </button>
   <Modal 
     show={show}
