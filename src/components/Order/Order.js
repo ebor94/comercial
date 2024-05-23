@@ -2,13 +2,12 @@
 import OrderItem2 from './OrderItem';
 import OrderTotal from './OrderTotal';
 import ConfirmButton from './ConfirmButton';
-import {serviceInvoice} from '../service/invoice'
+import {serviceInvoice} from '../../service/invoice'
 import { useEffect, useState} from 'react';
-import Loader from './loader/loader';
+import Loader from '../loader/loader';
 
 
-const Order = () => {
-  
+const Order = () => { 
 
     const [responseData, setResponseData] = useState([]);
     const [offer, setOffer] = useState(0);
@@ -55,21 +54,15 @@ const Order = () => {
           setResponseData(result); // Actualizando el estado con los datos de la respuesta
           const service = await serviceInvoice("06",result[0].pedido,"0","0","","",""); // actualizamos la apertura del cliente 
           console.log ("*********apertura cliente****************",service)    
-         
-          
+        
         } catch (error) {
           console.error('There was a problem with the fetch operation:', error);
           setError(error);
         }
         finally {
             setLoading(false);
-          }
-
-
-
-           
-      };
-        
+          }           
+      };        
       postData();
       
     }, []); 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import '../assets/css/ConfirmButton.css';
+import '../../assets/css/ConfirmButton.css';
 import { Modal, Button, Form } from 'react-bootstrap';
-import { serviceInvoice } from '../service/invoice';
-import ModalMessage from './Modal/ModalMessage';
+import { serviceInvoice } from '../../service/invoice';
+import ModalMessage from '../Modal/ModalMessage';
 
 const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfirm}) => {
 

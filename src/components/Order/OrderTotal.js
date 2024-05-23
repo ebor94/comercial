@@ -1,6 +1,6 @@
 // src/components/OrderTotal.js
 import React from 'react';
-import '../assets/css/OrderTotal.css';
+import '../../assets/css/OrderTotal.css';
 
 import { FaCheckCircle } from "react-icons/fa";
 import { MdCancel } from "react-icons/md";

@@ -1,6 +1,6 @@
 // src/components/OrderItem.js
 import React from 'react';
-import '../assets/css/OrderItem.css';
+import '../../assets/css/OrderItem.css';
 
 // import { FaCheckCircle } from "react-icons/fa";
 // import { MdCancel } from "react-icons/md";
