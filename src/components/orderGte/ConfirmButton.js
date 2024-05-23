@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../../assets/css/ConfirmButton.css';
 import { Modal, Button, Form } from 'react-bootstrap';
+import { serviceInvoice } from '../../service/invoice';
 
 const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfirm}) => {
 
@@ -11,29 +12,38 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
   const handleShow = () => setShow(true);
   
    
-  const handleClick =   (message) => {
+  const handleClick = async (message) => {
     const pin = Math.floor(Math.random() * 10000);
     let textPin = pin.toString();
-    let textApproved = `Token ${textPin} for the quote ${message}`
+    let textApproved = `Token ${textPin} for quote ${message}`
     setCode(textPin)
-    sendMessage("3165217418",textApproved)    
+    let resMensage = await  sendMessage("3165217418",textApproved)    
+    const resServiceInvoice = await serviceInvoice("07",offer,"0","",textPin,resMensage,""); // actualizamos respuesta del envio de whatsapp
+    //console.log("******respuesta de whatsapp*******",resMensage)
+    console.log("*****envio whatsapp(07)********",resServiceInvoice)
     handleShow();
   };
   const sendMessage = async(phoneNumber, message) =>{
    const raw = JSON.stringify({ "phoneNumber": phoneNumber, "message": message, platform:"W"  })
-   fetch("https://lilix.ceramicaitalia.com:3001/mensajeria", {method: "POST", headers: {'Content-Type': 'application/json'}, body : raw})
+    return await fetch("https://lilix.ceramicaitalia.com:3001/mensajeria", {method: "POST", headers: {'Content-Type': 'application/json'}, body : raw})
     .then((response) => response.text())
-    .then((result) => console.log(result))
+    .then((result) =>{      
+      //console.log(result)
+      return result
+    })
     .catch((error) => console.error(error));    
   }
 
-  const handleClickConfirmCode = (code,codeInput) => {
+  const handleClickConfirmCode = async (code,codeInput) => {
     console.log(code,codeInput)
     let codeI =  codeInput.trim()
     if(codeI === code){
       handleClose();
-      let messageApproved = `se Approved la quote ${offer} with token ${code} `;
-      sendMessage(phoneNumberSeller,messageApproved);  
+      let messageApproved = `the quote ${offer} has been  Approved with token ${code} `;
+      let resmessage = await sendMessage("3165217418",messageApproved); 
+      const responseInvoice = await serviceInvoice("02",offer,"0",localStorage.getItem('margenInterno'),code,resmessage,""); // actualizamos el estado de la aprobacion
+      console.log("*****aprobacion comercial(02)********",responseInvoice)
+     
       alert('code true');
     }else{
       alert('code false');

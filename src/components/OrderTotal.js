@@ -24,6 +24,7 @@ const OrderTotal = ({ items, taxRate, onValueChange  }) => {
   const total =  new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(subtotal + taxes);
   const margenDoc =  (((subTotalPvp - subtotal) / subTotalPvp ) * 100).toFixed(2)
   const  margenPlata =  new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format((subTotalPvp) - (subtotal) );  
+  localStorage.setItem('margenAliado', margenDoc);
 
   margenDoc > 40 ? onValueChange("confirm-button-ok"): onValueChange("confirm-button")
   

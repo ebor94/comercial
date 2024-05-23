@@ -2,7 +2,9 @@
 import OrderItem2 from './OrderItem';
 import OrderTotal from './OrderTotal';
 import ConfirmButton from './ConfirmButton';
+import Loader from '../loader/loader';
 import { useEffect, useState} from 'react';
+import { serviceInvoice } from '../../service/invoice';
 
 
 const Order = () => {
@@ -51,6 +53,8 @@ const Order = () => {
           setCustomer(result[0].nomcte)
           setphoneNumberSeller(result[0].telfvend)
           setResponseData(result); // Actualizando el estado con los datos de la respuesta
+          const service = await serviceInvoice("05",result[0].pedido,"0","0","","",""); // actualizamos la apertura del cliente 
+          console.log ("*********apertura comercial****************",service)
          
           
         } catch (error) {
@@ -74,7 +78,7 @@ const Order = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return <Loader/>;
       }
     
     if (error) {

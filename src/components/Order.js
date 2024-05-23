@@ -2,7 +2,9 @@
 import OrderItem2 from './OrderItem';
 import OrderTotal from './OrderTotal';
 import ConfirmButton from './ConfirmButton';
+import {serviceInvoice} from '../service/invoice'
 import { useEffect, useState} from 'react';
+import Loader from './loader/loader';
 
 
 const Order = () => {
@@ -51,6 +53,8 @@ const Order = () => {
           setCustomer(result[0].nomcte)
           setphoneNumberSeller(result[0].telfvend)
           setResponseData(result); // Actualizando el estado con los datos de la respuesta
+          const service = await serviceInvoice("06",result[0].pedido,"0","0","","",""); // actualizamos la apertura del cliente 
+          console.log ("*********apertura cliente****************",service)    
          
           
         } catch (error) {
@@ -60,11 +64,14 @@ const Order = () => {
         finally {
             setLoading(false);
           }
+
+
+
+           
       };
-  
+        
       postData();
-
-
+      
     }, []); 
   
     const taxRate = 0.19; 
@@ -74,7 +81,7 @@ const Order = () => {
     };
 
     if (loading) {
-        return <div>Loading...</div>;
+        return   <Loader/>;
       }
     
     if (error) {
@@ -87,7 +94,7 @@ const Order = () => {
       <div className="logo-container">
         <img src="https://web.ceramicaitalia.com/log.png" alt="Logo" className="logo" />
       </div>
-        <h1>Cotizacion </h1>
+        <h1>Proforma De Pedido </h1>
          <h5 className='order-code'>{offer}</h5>
         <h4 className='name-customer'>{customer}</h4> 
       {<div className="order-list">

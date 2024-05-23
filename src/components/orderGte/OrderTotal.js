@@ -23,7 +23,8 @@ const OrderTotal = ({ items, taxRate, onValueChange  }) => {
   const taxesConvert = new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(subtotal * taxRate);
   const total =  new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format(subtotal + taxes);
   const margenDoc =  ((( subtotal - subTotalCosto) / subtotal ) * 100).toFixed(2)
-  const  margenPlata =  new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format( (subtotal) - (subTotalCosto));  
+  const  margenPlata =  new Intl.NumberFormat('es-CO', { style: 'currency', currency: 'COP' }).format( (subtotal) - (subTotalCosto)); 
+  localStorage.setItem('margenInterno', margenDoc); 
 
   margenDoc > 40 ? onValueChange("confirm-button-ok"): onValueChange("confirm-button")
   
