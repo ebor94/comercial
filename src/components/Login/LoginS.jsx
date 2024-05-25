@@ -4,28 +4,50 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
+  const [intentos, setIntentos] = useState(4);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch('https://api.example.com/login', {
-        username,
-        password,
+ 
+
+      const raw = JSON.stringify({
+        "usuario": username.toUpperCase(),
+        "codvend": "",
+        "password": password
       });
 
-      if (response.data.success) {
+   
+      const response = await fetch("https://lilix.ceramicaitalia.com:3001/loginsap/", {method: "POST", headers: {'Content-Type': 'application/json'}, body : raw} )
+       
+        const result = await response.json();
+        console.log(result)
+      if (result.succes) {
         // Guardar token en el localStorage o manejar la sesión como prefieras
-        localStorage.setItem('token', response.data.token);
-        navigate('/dashboard');
+        localStorage.setItem('token', result.token);
+        let infoComercial = result.data
+        infoComercial.forEach(item =>{
+          if(item.parid === 'BZI')localStorage.setItem('zona', item.parva);
+          if(item.parid === 'VKB')localStorage.setItem('ofiventas', item.parva);
+          if(item.parid === 'VKG')localStorage.setItem('codvend', item.parva);
+          if(item.parid === 'VKO')localStorage.setItem('orgventas', item.parva);
+          if(item.parid === 'VTW')localStorage.setItem('canal', item.parva);
+          if(item.parid === 'WRK')localStorage.setItem('centro', item.parva);
+        })
+        
+        navigate('/Home');
       } else {
-        setError('Nombre de usuario o contraseña incorrectos.');
+        setIntentos(intentos - 1)
+        if(intentos === 0){
+          setError(`Usuario Bloqueado validar Con TI para desbloquear.`);
+        }else{
+          setError(`Nombre de usuario o contraseña incorrectos, te quedan ${intentos}.`);
+        }
+        
       }
-    } catch (err) {
-      setError('Error al conectar con el servidor.');
-    }
+   
   };
 
   return (

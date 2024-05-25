@@ -1,3 +1,32 @@
+.main-layout {
+  display: flex;
+}
+
+.content {
+  flex-grow: 1;
+  padding: 20px;
+  transition: margin-left 0.5s;
+}
+
+.content .open-btn {
+  font-size: 30px;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1;  
+  width: auto;
+}
+
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar ul li {font-size: 18px;}
+}
+
+
+
+
+
 .order-item {
   display: flex;
   flex-wrap: wrap;
