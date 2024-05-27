@@ -8,6 +8,7 @@ import Login from './components/Login/LoginS';
 import Home from './components/Home/Home';
 import Sidebar from './components/Sidebar/sidebar';
 import { useState } from 'react';
+import NavBar from './components/navBar/NavBar';
 
  //?LCODIGO=0010513436&cte=0000109476
 
@@ -26,13 +27,16 @@ const App = () => {
 const MainLayout = () => {
   const location = useLocation();
   const [isSidebarOpen, setSidebarOpen] = useState(true);
+  const noNavbarPaths = ['/'];
   const showSidebar = location.pathname !== '/';
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
 };
 
   return (
-      <div className="main-layout">          
+    <> {!noNavbarPaths.includes(location.pathname) && <NavBar />}
+      <div className="main-layout">  
+              
           {showSidebar && <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />}
           <div className="content">
           {showSidebar && (
@@ -40,7 +44,8 @@ const MainLayout = () => {
                         &#9776;
                     </button>
                 )}
-          <Routes>
+         
+          <Routes>         
           <Route path="/" element={<Login />} />
           <Route path="/Home/" element={<Home />} />
           <Route path="/listquote/" element={<Order />} />
@@ -49,6 +54,7 @@ const MainLayout = () => {
        </Routes>
           </div>
       </div>
+      </>
   );
 };
 

@@ -36,6 +36,7 @@ const Login = () => {
           if(item.parid === 'VTW')localStorage.setItem('canal', item.parva);
           if(item.parid === 'WRK')localStorage.setItem('centro', item.parva);
         })
+        localStorage.setItem('usuario', username.toUpperCase())
         
         navigate('/Home');
       } else {

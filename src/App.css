@@ -12,10 +12,11 @@
   font-size: 30px;
   cursor: pointer;
   position: fixed;
-  top: 20px;
-  left: 20px;
-  z-index: 1;  
+  top: 24px;
+  left: 0px;
+  z-index: 1;
   width: auto;
+
 }
 
 @media screen and (max-height: 450px) {
