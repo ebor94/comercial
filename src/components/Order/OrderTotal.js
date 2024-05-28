@@ -2,17 +2,15 @@
 import React from 'react';
 import '../../assets/css/OrderTotal.css';
 
-import { FaCheckCircle } from "react-icons/fa";
-import { MdCancel } from "react-icons/md";
 
 const OrderTotal = ({ items, taxRate, onValueChange  }) => {
   const calculateSubtotal = () => {
-   // return items.reduce((sum, item) => sum + item.vneto * item.cntped, 0);
+   
    return items.reduce((sum, item) => sum + item.vneto, 0);
   };
   const calculateSubtotalPvp = () => {
     return items.reduce((sum, item) => sum + item.pvp * item.cntped, 0);
-    //return items.reduce((sum, item) => sum + item.vneto, 0);
+   
    };
 
   const subTotalPvp = calculateSubtotalPvp()  

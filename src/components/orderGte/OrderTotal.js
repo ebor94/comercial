@@ -44,11 +44,8 @@ const OrderTotal = ({ items, taxRate, onValueChange  }) => {
         <span className="value"> 
          {margenPlata}
           <b>({margenDoc}%)</b>
-          {margenDoc > 42 ? (
-            <FaCheckCircle style={{ color: 'green', fontSize: '24px' }} />
-          ) : (
-            <MdCancel style={{ color: 'red', fontSize: '24px' }} />
-          )}
+          {margenDoc > 42 ? (<FaCheckCircle style={{ color: 'green', fontSize: '24px' }} />) : ( <MdCancel style={{ color: 'red', fontSize: '24px' }} />)}
+
         </span>
       </div>
 

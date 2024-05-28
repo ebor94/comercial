@@ -6,15 +6,17 @@
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #ff2a2a;
+    background-color: rgb(248 249 250);
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
-    color: white;
+    color: #545454;
+    margin-top: 20px;
 }
 
 .sidebar.open {
-    width: 250px;
+    width: 200px;
+  
 }
 
 .sidebar .close-btn {
@@ -27,21 +29,31 @@
 .sidebar ul {
     list-style-type: none;
     padding: 0;
+    margin-top: 30px;
 }
 
 .sidebar ul li {
-    padding: 8px 8px 8px 32px;
+    padding: 8px 0px 8px 5px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 0.875rem;
     display: block;
     transition: 0.3s;
+    margin: 15px;
+    
+    
 }
 
 .sidebar ul li a {
-    color: white;
+    color: #545454;
     text-decoration: none;
+    border-radius: 10px;
 }
 
 .sidebar ul li:hover {
-    background-color: #575757;
+    background-color: #e4e4e4;
+    color: white;
+    border-radius: 10px;
+    
 }
+
+

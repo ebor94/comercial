@@ -1,6 +1,8 @@
 import React from 'react';
 import '../../assets/css/sidebar.css'
 import { Link } from 'react-router-dom';
+import { GoHome } from "react-icons/go";
+import { IoCartOutline } from "react-icons/io5";
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
     return (
@@ -10,7 +12,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </button> */}
             <br/>
             <ul>
-                <li><Link to="/Home" onClick={toggleSidebar}>Home</Link></li>
+                <li><Link to="/Home" onClick={toggleSidebar}><GoHome style={{fontSize: '24px' }} /> Home</Link></li>
+                <li><Link to="/listQuote" onClick={toggleSidebar}> <IoCartOutline  style={{fontSize: '24px' }}/>Gestion Cotizaciones</Link></li>
                 {/* <li><Link to="/invoice" onClick={toggleSidebar}>Invoice</Link></li> */}
             </ul>
         </div>

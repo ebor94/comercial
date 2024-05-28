@@ -1,13 +1,14 @@
 import React from 'react'
-import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import { Navbar,  Container } from 'react-bootstrap';
+
 
 export default function NavBar() {
   return (
     <Navbar bg="light" expand="lg">
-      <Container>
+      <Container >
         <Navbar.Brand href="#home">
-        <Container>
+        <Container >
+       
           <Navbar.Brand href="#home">
             <img
               src="https://web.ceramicaitalia.com/log.png"
