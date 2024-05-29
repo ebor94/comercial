@@ -1,49 +1,40 @@
 import React from 'react'
-import { Navbar,  Container } from 'react-bootstrap';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+import { AiOutlineLogout } from "react-icons/ai";
+
+
 
 
 export default function NavBar() {
   return (
-    <Navbar bg="light" expand="lg">
-      <Container >
-        <Navbar.Brand href="#home">
-        <Container >
-       
+<Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
+      <Container>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+           <Navbar className="bg-body-tertiary">
+        <Container>
           <Navbar.Brand href="#home">
             <img
-              src="https://web.ceramicaitalia.com/log.png"
-              width="130"
-              height="50"
-              className="d-inline-block align-top"
-              alt="React Bootstrap logo"
+               src="https://web.ceramicaitalia.com/log.png"
+               width="130"
+               height="50"
+               className="d-inline-block align-top"
+               alt="React Bootstrap logo"
             />
           </Navbar.Brand>
         </Container>
-
-        </Navbar.Brand>
-        {/* <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">          
-            <LinkContainer to="/Home">
-              <Nav.Link>Home</Nav.Link>
-            </LinkContainer>
-            <LinkContainer to="/listquote">
-              <Nav.Link>Gestion proformas</Nav.Link>
-            </LinkContainer>
-            <NavDropdown title="Más" id="basic-nav-dropdown">
-              <LinkContainer to="/contact">
-                <NavDropdown.Item>Contacto</NavDropdown.Item>
-              </LinkContainer>
-              <LinkContainer to="/faq">
-                <NavDropdown.Item>Preguntas Frecuentes</NavDropdown.Item>
-              </LinkContainer>
-              <NavDropdown.Divider />
-              <LinkContainer to="/help">
-                <NavDropdown.Item>Ayuda</NavDropdown.Item>
-              </LinkContainer>
-            </NavDropdown>
+      </Navbar>
           </Nav>
-        </Navbar.Collapse> */}
+          <Nav>
+            <Nav.Link href="#deets"><AiOutlineLogout style={{ fontSize: '24px' }}/></Nav.Link>
+            {/* <Nav.Link eventKey={2} href="#memes">
+              Dank memes
+            </Nav.Link> */}
+          </Nav>
+        </Navbar.Collapse>
       </Container>
     </Navbar>
   )

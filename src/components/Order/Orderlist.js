@@ -5,11 +5,16 @@ import Row from 'react-bootstrap/Row';
 import { useState, useEffect } from 'react';
 import Loader from '../loader/loader';
 import { Button, ButtonGroup } from 'react-bootstrap';
-import { AiOutlineSend, AiFillEye } from "react-icons/ai";
 import {MargeInterno} from "../../hooks/MargenInterno"
 import { MdCancel } from "react-icons/md";
 import { FaCircleCheck } from "react-icons/fa6";
 import { LuTrash2 } from "react-icons/lu";
+import { IoIosClose } from "react-icons/io";
+import { IoCheckmark } from "react-icons/io5";
+import SendMessage from '../Buttons/SendMessage';
+import { CiUnlock } from "react-icons/ci";
+import ViewQuote from '../Buttons/ViewQuote';
+
 
 
 export default function Orderlist() {
@@ -20,17 +25,15 @@ export default function Orderlist() {
   useEffect(() => {
     const getQuotes = async () =>{
 
-      const raw = JSON.stringify({
-        
-          "BANDERA":"09",
-          "OFERTA":"",
+      const raw = JSON.stringify({        
+          "BANDERA":"98",
+          "OFERTA":"0005103269",
           "MARGENALIADO":"",
           "MARGENINTERNO":"",
           "TOKEN":"",
           "RESPUESTAWP":"",
           "USUARIOAPROB":"",
-          "FILTRO" : "ZONZ"
-          
+          "FILTRO" : "ZONZ"          
       });
 
       try {
@@ -62,7 +65,7 @@ export default function Orderlist() {
     }
   
     getQuotes()
-  }, [quotes])
+  }, [])
 
 
   const calculateMargin = async (doc, cte, tipo) => {
@@ -86,7 +89,7 @@ if (error) {
 
   return (
     <Container >
-    <div className='mb-5'><h1>Proformas a Gestionar</h1></div>
+    <div className='mb-5 text-center'><h2 style={{color : "#615f5f"}}>Proformas a Gestionar</h2></div>
     <Row className="justify-content-md-center">
     <Table striped bordered responsive>
       <thead>
@@ -115,14 +118,20 @@ if (error) {
             <td >{data.telefono}</td>
             <td >{data.margeninterno}</td>
             <td >{data.margenaliado}</td>
-            <td >{data.aprobgte}</td>
-            <td >{data.aprobcte}</td>
-            <td >{data.fechaaperturacte} / {data.horaaperturacte}</td>           
+            <td >
+            {data.margeninterno >= 42 ? (<CiUnlock style={{ color: 'green', fontSize: '24px' }} />  ) : data.aprobgte === "1" ? <IoCheckmark style={{ color: 'green', fontSize: '24px' }} /> : <IoIosClose style={{ color: 'red', fontSize: '24px' }}/>  }
+             </td>
+
+            <td >{data.aprobcte === "1" ? <IoCheckmark style={{ color: 'green', fontSize: '24px' }} /> : <IoIosClose style={{ color: 'red', fontSize: '24px' }}/>  }</td>
+            <td >{data.fechaaperturacte !=="" ?  data.fechaaperturacte+"/"+data.horaaperturacte : <IoIosClose style={{ color: 'red', fontSize: '24px' }}/> }</td>           
             <td>
               <ButtonGroup size="md" className="mb-2">
-                <Button alt="Enviar" variant='success'><AiOutlineSend /></Button>
-                <Button  variant='primary'><AiFillEye /></Button> 
-                <Button alt="Enviar" variant='danger'><LuTrash2 /></Button>      
+                <SendMessage data={data}/>
+                <ViewQuote 
+                cte={data.identificacion}
+                quote={data.documento}
+                />
+                <Button alt="Eliminar" variant='danger'><LuTrash2 /></Button>      
               </ButtonGroup>
             </td> 
             <td  className="mb-2">{data.margeninterno >= 42 ? <FaCircleCheck  className="mb-2" style={{ color: 'green', fontSize: '24px' }}/> : <MdCancel  className="mb-2" style={{ color: 'red', fontSize: '24px' }}/>}</td>           
