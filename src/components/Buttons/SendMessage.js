@@ -13,14 +13,15 @@ function SendMessage({data}) {
     const [modalTitle, setModalTitle] = useState('Mensaje');
     const [modalMessage, setModalMessage] = useState('');
     const [isLoading, setLoading] = useState(false);
+    const url = window.location.origin;
 
 const handleClickSendMessage = async (data) => {
     console.log(data)
     setLoading(true);   
- const {telefono, margeninterno, aprobgte,  documento } = data;
+ const {telefono, margeninterno, aprobgte,  documento ,identificacion} = data;
     if(telefono){
         if(margeninterno < 42 && !aprobgte ){
-            let messageApproved = `la proforma ${documento} necesita ser aprobada porque no cumple con el margen esperado`;
+            let messageApproved = `la proforma ${documento} necesita ser aprobada porque no cumple con el margen esperado ver proforma en ${url}/quotegte/?LCODIGO=${documento}&cte=${identificacion}`;
             let telAprobacion  = await  TelDirComercial()
             let resmessage = await sendMessage(telAprobacion,messageApproved); 
             const result =  JSON.parse(resmessage)
@@ -36,9 +37,21 @@ const handleClickSendMessage = async (data) => {
             }
             return
         }
-        setModalMessage(`funcion de envio a cliente`)
-        setLoading(false);
-        handleShowModal()
+        let messageApprovedcte = `Ceramica italia ha generado la proforma ${documento} y necesita ser aprobada,  ver proforma en ${url}/quotecte/?LCODIGO=${documento}&cte=${identificacion}`;
+        let resmessagecte = await sendMessage(telefono,messageApprovedcte); 
+        const reswp =  JSON.parse(resmessagecte)
+        
+        if(reswp.sent){
+          setModalMessage(`proforma enviada al cliente, para su respectiva aprobacion`)
+          setLoading(false);
+          handleShowModal()
+      }else{
+          setModalMessage("error al enviar el mensaje validar con tecnologias de la informacion")
+          setLoading(false);
+          handleShowModal()
+      }
+
+      
 
     }else{
         setModalMessage('Por favor ingrese un numero de telefono')

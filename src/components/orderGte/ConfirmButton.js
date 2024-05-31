@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import '../../assets/css/ConfirmButton.css';
 import { Modal, Button, Form } from 'react-bootstrap';
 import { serviceInvoice } from '../../service/invoice';
+import { TelDirComercial } from '../../hooks/GetDirComercial';
 
 const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfirm}) => {
 
@@ -15,9 +16,10 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
   const handleClick = async (message) => {
     const pin = Math.floor(Math.random() * 10000);
     let textPin = pin.toString();
-    let textApproved = `Token ${textPin} for quote ${message}`
+    let textApproved = `Token ${textPin} para la proforma ${message}`
     setCode(textPin)
-    let resMensage = await  sendMessage("3165217418",textApproved)    
+    let telAprobacion  = await  TelDirComercial()
+    let resMensage = await  sendMessage(telAprobacion,textApproved)    
     const resServiceInvoice = await serviceInvoice("07",offer,"0","",textPin,resMensage,""); // actualizamos respuesta del envio de whatsapp
     //console.log("******respuesta de whatsapp*******",resMensage)
     console.log("*****envio whatsapp(07)********",resServiceInvoice)
@@ -39,14 +41,15 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
     let codeI =  codeInput.trim()
     if(codeI === code){
       handleClose();
-      let messageApproved = `the quote ${offer} has been  Approved with token ${code} `;
-      let resmessage = await sendMessage("3165217418",messageApproved); 
+      let messageApproved = `la proforma ${offer} ha sido aprobada con el  token ${code} `;
+      let telAprobacion  = await  TelDirComercial()
+      let resmessage = await sendMessage(telAprobacion,messageApproved); 
+      await sendMessage(phoneNumberSeller,messageApproved); 
       const responseInvoice = await serviceInvoice("02",offer,"0",localStorage.getItem('margenInterno'),code,resmessage,""); // actualizamos el estado de la aprobacion
       console.log("*****aprobacion comercial(02)********",responseInvoice)
-     
-      alert('code true');
+      alert('aprobacion exitosa');
     }else{
-      alert('code false');
+      alert('token incorrecto');
     }
     
   }

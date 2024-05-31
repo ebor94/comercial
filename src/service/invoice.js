@@ -6,7 +6,8 @@ export const serviceInvoice =  async (bandera,oferta,margenAliado,margenInterno,
         "MARGENINTERNO": margenInterno,
         "TOKEN": token,
         "RESPUESTAWP": respuestaWp,
-        "USUARIOAPROB":usuarioAprob
+        "USUARIOAPROB":usuarioAprob,
+        "FILTRO" : ""
       });
 
 

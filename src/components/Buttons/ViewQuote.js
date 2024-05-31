@@ -7,14 +7,15 @@ import {  AiFillEye } from "react-icons/ai";
 export default function ViewQuote({cte, quote}) {
 
     const [modalShow, setModalShow] = useState(false);
-   
-    const [isLoading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [isLoading, setisLoading] = useState(false);
     const [responseData, setResponseData] = useState([]);
-    const [error, setError] = useState(null);
+    
 
-   
+    useEffect(() => {
         const postData = async () => {
        
+        
           // Datos que vamos a enviar en el cuerpo de la solicitud
           const raw = JSON.stringify({
             "LCODIGO": quote,
@@ -36,31 +37,37 @@ export default function ViewQuote({cte, quote}) {
             }
             // Obteniendo los datos de la respuesta
             const result = await response.json();            
-           setResponseData(result); // Actualizando el estado con los datos de la respuesta
+             setResponseData(result); // Actualizando el estado con los datos de la respuesta
           
-          } catch (error) {
-            console.error('There was a problem with the fetch operation:', error);
-            setError(error);
+          } catch (e) {            
+           
+            console.error('There was a problem with the fetch operation:', );
           }
           finally {
               setLoading(false);
-              setModalShow(true);
+              //setModalShow(true);
+              
             }           
         };        
         
-        
-    
+        postData();
+      }, [cte, quote])
 
     const handleClickViewQuote = async () =>{
-        //postData();
-        setLoading(true)    
+        setModalShow(true);
+        setisLoading(true)  
+        
        
    }           
    
    const handleCloseModal = () => {
         setModalShow(false);                
-        setLoading(false)
+        setisLoading(false)
       };
+
+      if (loading) {
+        return   <Spinner animation="border" size="sm" />;
+      }   
        
   return (
     <>
@@ -74,7 +81,7 @@ export default function ViewQuote({cte, quote}) {
    <ModalViewQuote
    show={modalShow}
    handleClose={handleCloseModal}
-   //quote={responseData}
+   data={responseData}
    
    />
    </>

@@ -28,8 +28,8 @@ const App = () => {
 const MainLayout = () => {
   const location = useLocation();
   const [isSidebarOpen, setSidebarOpen] = useState(true);
-  const noNavbarPaths = ['/'];
-  const showSidebar = location.pathname !== '/';
+  const noNavbarPaths = ['/','/quote/'];
+  const showSidebar = location.pathname === '/listquote/' ||  location.pathname === '/Home/'  ;
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
 };

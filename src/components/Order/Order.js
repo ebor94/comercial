@@ -114,7 +114,10 @@ const Order = () => {
          offer={offer}
          phoneNumber={phoneNumber} 
          phoneNumberSeller={phoneNumberSeller} 
-         colorButtonConfirm={colorButtonConfirm}/>
+         colorButtonConfirm={colorButtonConfirm}
+         
+         
+         />
         
       </div>
       </div> 

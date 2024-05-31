@@ -26,14 +26,14 @@ export default function Orderlist() {
     const getQuotes = async () =>{
 
       const raw = JSON.stringify({        
-          "BANDERA":"98",
+          "BANDERA":"10",
           "OFERTA":"0005103269",
           "MARGENALIADO":"",
           "MARGENINTERNO":"",
           "TOKEN":"",
           "RESPUESTAWP":"",
           "USUARIOAPROB":"",
-          "FILTRO" : "ZONZ"          
+          "FILTRO" : "209"          
       });
 
       try {
@@ -50,10 +50,10 @@ export default function Orderlist() {
       if(iterator.margenaliado === 0){
         iterator.margenaliado = await  calculateMargin(iterator.documento, iterator.identificacion,"aliado")
       }
-        console.log(iterator)
+        //console.log(iterator)
       }     
       setQuotes(result);
-        
+      console.log(result)
       } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         setError(error);
@@ -131,7 +131,7 @@ if (error) {
                 cte={data.identificacion}
                 quote={data.documento}
                 />
-                <Button alt="Eliminar" variant='danger'><LuTrash2 /></Button>      
+                    
               </ButtonGroup>
             </td> 
             <td  className="mb-2">{data.margeninterno >= 42 ? <FaCircleCheck  className="mb-2" style={{ color: 'green', fontSize: '24px' }}/> : <MdCancel  className="mb-2" style={{ color: 'red', fontSize: '24px' }}/>}</td>           
