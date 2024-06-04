@@ -115,7 +115,7 @@ if (error) {
             <td >{data.nombre}</td>
             <td >{data.zonav}</td>
             <td >{data.vendedor}</td>
-            <td >{data.telefono}</td>
+            <td >{data.telefono } </td>
             <td >{data.margeninterno}</td>
             <td >{data.margenaliado}</td>
             <td >

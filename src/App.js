@@ -52,7 +52,7 @@ const MainLayout = () => {
           <Route path="/Home/" element={<Home />} />
           <Route path="/listquote/" element={<Orderlist />} />
           <Route path="/quote/" element={<Order />} />
-          <Route path="/quotegte" element={<OrderGte />} />
+          <Route path="/quotegte/" element={<OrderGte />} />
        </Routes>
           </div>
       </div>

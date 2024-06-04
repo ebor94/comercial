@@ -12,8 +12,8 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </button> */}
             <br/>
             <ul>
-                <li><Link to="/Home" onClick={toggleSidebar}><GoHome style={{fontSize: '24px' }} /> Home</Link></li>
-                <li><Link to="/listQuote" onClick={toggleSidebar}> <IoCartOutline  style={{fontSize: '24px' }}/>Gestion Proformas</Link></li>
+                <li><Link to="/Home/" onClick={toggleSidebar}><GoHome style={{fontSize: '24px' }} /> Home</Link></li>
+                <li><Link to="/listQuote/" onClick={toggleSidebar}> <IoCartOutline  style={{fontSize: '24px' }}/>Gestion Proformas</Link></li>
                 {/* <li><Link to="/invoice" onClick={toggleSidebar}>Invoice</Link></li> */}
             </ul>
         </div>

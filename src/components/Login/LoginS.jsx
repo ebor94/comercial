@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../assets/css/Login.css'
 import { useNavigate } from 'react-router-dom';
 
@@ -8,6 +8,13 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.clear();
+
+
+
+  },[])
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -38,7 +45,7 @@ const Login = () => {
         })
         localStorage.setItem('usuario', username.toUpperCase())
         
-        navigate('/Home');
+        navigate('/Home/');
       } else {
         setIntentos(intentos - 1)
         if(intentos === 0){

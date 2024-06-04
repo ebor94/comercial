@@ -27,8 +27,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
         setdisabledButton(true);
         settitleButtonaprob('proforma ya aprobada....');
       }
-    }
-    
+    }   
    
     postData()
   }, [offer])
@@ -47,7 +46,6 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
     console.log(resMensage)
     
     if(reswp.sent){
-
       const resServiceInvoice = await serviceInvoice("07",offer,"0","",textPin,resMensage,""); // actualizamos respuesta del envio de whatsapp 
       console.log("******respuesta de whatsapp*******",reswp)
       console.log("*****envio whatsapp(07)********",resServiceInvoice)    
@@ -102,7 +100,6 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
 
   };
 
-
   return (
     <>
     <button  disabled={disabledButton}  className={colorButtonConfirm} onClick={() => handleClick(offer)} >      
@@ -138,15 +135,12 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
             Confirm
           </Button>
         </Modal.Footer>
-      </Modal>
-
-      
+      </Modal>      
       <ModalMessage
     show={view}
     handleClose={handleCloseModal}
     title={"mensaje"}
-    message={message}
-    
+    message={message}    
     />
   </>
   );

@@ -29,7 +29,7 @@ export default function NavBar() {
       </Navbar>
           </Nav>
           <Nav>
-            <Nav.Link href="#deets"><AiOutlineLogout style={{ fontSize: '24px' }}/></Nav.Link>
+            <Nav.Link href="/"><AiOutlineLogout style={{ fontSize: '24px' }}/></Nav.Link>
             {/* <Nav.Link eventKey={2} href="#memes">
               Dank memes
             </Nav.Link> */}

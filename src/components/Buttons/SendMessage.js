@@ -37,7 +37,7 @@ const handleClickSendMessage = async (data) => {
             }
             return
         }
-        let messageApprovedcte = `Ceramica italia ha generado la proforma ${documento} y necesita ser aprobada,  ver proforma en ${url}/quotecte/?LCODIGO=${documento}&cte=${identificacion}`;
+        let messageApprovedcte = `Ceramica italia ha generado la proforma ${documento} y necesita ser aprobada,  ver proforma en ${url}/quote/?LCODIGO=${documento}&cte=${identificacion}`;
         let resmessagecte = await sendMessage(telefono,messageApprovedcte); 
         const reswp =  JSON.parse(resmessagecte)
         
