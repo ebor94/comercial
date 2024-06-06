@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import '../../assets/css/ConfirmButton.css';
 import { Modal, Button, Form, Spinner } from 'react-bootstrap';
 import { serviceInvoice } from '../../service/invoice';
+import {SaleDocument}  from '../../hooks/order';
 import ModalMessage from '../Modal/ModalMessage';
 
 const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfirm}) => {
@@ -27,10 +28,12 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
         setdisabledButton(true);
         settitleButtonaprob('proforma ya aprobada....');
       }
+
+      
     }   
    
     postData()
-  }, [offer])
+  }, [offer ])
   
   
    
@@ -53,6 +56,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
 
     }else{
         alert("error al enviar el mensaje validar con tecnologias de la informacion", phoneNumber)
+        setLoading(false)
     }
   };
 
@@ -79,11 +83,21 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
       await sendMessage(phoneNumberSeller,messageApproved); 
       const responseInvoice = await serviceInvoice("03",offer,"0",localStorage.getItem('margenInterno'),code,resmessage,""); // actualizamos el estado de la aprobacion
       console.log("*****aprobacion cliente(03)********",responseInvoice)
-      setMessage("Aprobacion Exitosa...")
+      let order  = await SaleDocument(offer, "ZTNA")
+
+      if(order){
+      setMessage(`Aprobacion Exitosa pedido registrado ${order}...`)
       setdisabledButton(true)
       settitleButtonaprob('proforma ya aprobada')
-      handleShowModal();
+
+      let messageApprovedOrder = `la proforma  ${offer} ha sido aprobada con el token ${code} y se creo el pedido ${order} `;
+      await sendMessage(phoneNumberSeller,messageApprovedOrder); 
+      await sendMessage(localStorage.getItem("celluser"),messageApprovedOrder);
       
+      }else{
+        setMessage("error al crear pedido ...")
+      }
+      handleShowModal();
     }else{
       alert('pin incorrecto');
     }

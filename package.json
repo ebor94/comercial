@@ -1,5 +1,6 @@
 {
   "name": "quote-app",
+  "homepage": "https://appcomercial.ceramicaitalia.com/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

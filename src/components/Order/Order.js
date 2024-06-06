@@ -47,6 +47,7 @@ const Order = () => {
           }
           // Obteniendo los datos de la respuesta
           const result = await response.json();
+          console.log (result)  
           setOffer(result[0].pedido)
           setphoneNumber(result[0].telf1)
           setCustomer(result[0].nomcte)
@@ -57,7 +58,7 @@ const Order = () => {
         
         } catch (error) {
           console.error('There was a problem with the fetch operation:', error);
-          setError(error);
+          setError(error,"60");
         }
         finally {
             setLoading(false);
