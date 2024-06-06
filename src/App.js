@@ -42,7 +42,7 @@ const MainLayout = () => {
           {showSidebar && <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />}
           <div className="content">
           {showSidebar && (
-                    <button className="open-btn" onClick={toggleSidebar}>
+                     <button className="open-btn" onClick={toggleSidebar}>
                         &#9776;
                     </button>
                 )}

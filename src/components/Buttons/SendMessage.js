@@ -16,7 +16,7 @@ function SendMessage({data}) {
     const url = window.location.origin;
 
 const handleClickSendMessage = async (data) => {
-    console.log(data)
+    //console.log(data)
     setLoading(true);   
  const {telefono, margeninterno, aprobgte,  documento ,identificacion} = data;
     if(telefono){
@@ -37,8 +37,13 @@ const handleClickSendMessage = async (data) => {
             }
             return
         }
-        let messageApprovedcte = `Ceramica italia ha generado la proforma ${documento} y necesita ser aprobada,  ver proforma en ${url}/quote/?LCODIGO=${documento}&cte=${identificacion}`;
-        let resmessagecte = await sendMessage(telefono,messageApprovedcte); 
+
+        let numeroTelCte  = telefono.split("-") 
+        console.log(numeroTelCte)
+        for( const itNumero of numeroTelCte){
+
+          let messageApprovedcte = `Ceramica italia ha generado la proforma ${documento} y necesita ser aprobada,  ver proforma en ${url}/quote/?LCODIGO=${documento}&cte=${identificacion}`;
+        let resmessagecte = await sendMessage(itNumero,messageApprovedcte); 
         const reswp =  JSON.parse(resmessagecte)
         
         if(reswp.sent){
@@ -50,6 +55,9 @@ const handleClickSendMessage = async (data) => {
           setLoading(false);
           handleShowModal()
       }
+
+        }
+        
 
       
 

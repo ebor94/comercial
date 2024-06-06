@@ -19,12 +19,19 @@ import ViewQuote from '../Buttons/ViewQuote';
 
 export default function Orderlist() {
 
-  const [quotes, setQuotes] = useState([]);
+  const [quotes, setQuotes] = useState([]);  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  useEffect(() => {
-    const getQuotes = async () =>{
 
+  
+  useEffect(() => {
+    const getQuotes = async () =>{   
+      let quotesIterada = [];
+      try {
+        let zona  = localStorage.getItem("zona").split("|")    
+      //console.log(zona.length)
+      for (const izona of zona) { 
+        console.log(izona)
       const raw = JSON.stringify({        
           "BANDERA":"10",
           "OFERTA":"0005103269",
@@ -33,10 +40,8 @@ export default function Orderlist() {
           "TOKEN":"",
           "RESPUESTAWP":"",
           "USUARIOAPROB":"",
-          "FILTRO" : "209"          
+          "FILTRO" : izona          
       });
-
-      try {
         const response = await fetch('https://lilix.ceramicaitalia.com:3001/clientes/quote/',{method : "POST", headers:{'Content-Type':"application/json"}, body: raw})
       if (!response.ok) {
         throw new Error('Network response was not ok');
@@ -51,20 +56,31 @@ export default function Orderlist() {
         iterator.margenaliado = await  calculateMargin(iterator.documento, iterator.identificacion,"aliado")
       }
         //console.log(iterator)
-      }     
-      setQuotes(result);
-      console.log(result)
+      }  
+      quotesIterada.push(result)   
+      
+      }
       } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
         setError(error);
         
       }finally{
+        let combinedArray = [];
         setLoading(false);
+       if(quotesIterada.length === 2){
+         combinedArray = [...quotesIterada[0], ...quotesIterada[1]];
+       }
+       if(quotesIterada.length === 1){
+        setQuotes(quotesIterada[0]);
+        return
+      }
+       
+        setQuotes(combinedArray);
       }  
+  }
 
-    }
+       getQuotes()
   
-    getQuotes()
   }, [])
 
 

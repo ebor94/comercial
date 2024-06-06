@@ -42,10 +42,12 @@ const Login = () => {
           if(item.parid === 'VKO')localStorage.setItem('orgventas', item.parva);
           if(item.parid === 'VTW')localStorage.setItem('canal', item.parva);
           if(item.parid === 'WRK')localStorage.setItem('centro', item.parva);
+          if(item.parid === '/BI0/OME_TELNO_W')localStorage.setItem('celluser', item.parva);
+          
         })
         localStorage.setItem('usuario', username.toUpperCase())
         
-        navigate('/Home/');
+        navigate('/listquote/');
       } else {
         setIntentos(intentos - 1)
         if(intentos === 0){
