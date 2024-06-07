@@ -5,7 +5,7 @@ import { serviceInvoice } from '../../service/invoice';
 import {SaleDocument}  from '../../hooks/order';
 import ModalMessage from '../Modal/ModalMessage';
 
-const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfirm}) => {
+const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfirm, customer}) => {
 
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("")
@@ -78,7 +78,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
     let codeI =  codeInput.trim()
     if(codeI === code){
       handleClose();
-      let messageApproved = `la proforma  ${offer} ha sido aprobada con el token ${code} `;
+      let messageApproved = `la proforma  ${offer} del aliado ${customer} , ha sido aprobada con el token ${code} `;
       let resmessage = await sendMessage(phoneNumber,messageApproved); 
       await sendMessage(phoneNumberSeller,messageApproved); 
       const responseInvoice = await serviceInvoice("03",offer,"0",localStorage.getItem('margenInterno'),code,resmessage,""); // actualizamos el estado de la aprobacion
@@ -86,20 +86,19 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
       let order  = await SaleDocument(offer, "ZTNA")
 
       if(order){
-      setMessage(`Aprobacion Exitosa pedido registrado ${order}...`)
-      setdisabledButton(true)
-      settitleButtonaprob('proforma ya aprobada')
-
-      let messageApprovedOrder = `la proforma  ${offer} ha sido aprobada con el token ${code} y se creo el pedido ${order} `;
-      await sendMessage(phoneNumberSeller,messageApprovedOrder); 
-      await sendMessage(localStorage.getItem("celluser"),messageApprovedOrder);
-      
+        setMessage(`Aprobacion Exitosa pedido registrado ${order}...`)
+        setdisabledButton(true)
+        settitleButtonaprob('proforma ya aprobada')
+        let messageApprovedOrder = `la proforma  ${offer} del aliado ${customer} , ha sido aprobada con el token ${code} y se creo el pedido ${order} `;
+        await sendMessage(phoneNumberSeller,messageApprovedOrder);
+        let numberUser =  localStorage.getItem("celluser") 
+        await sendMessage(numberUser,messageApprovedOrder);
       }else{
         setMessage("error al crear pedido ...")
       }
       handleShowModal();
     }else{
-      alert('pin incorrecto');
+      alert('token incorrecto');
     }
     
   }

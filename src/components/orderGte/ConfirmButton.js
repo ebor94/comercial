@@ -8,6 +8,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
 
   const [show, setShow] = useState(false);
   const [code, setCode] = useState('');
+  const [telAprobacionv, settelAprobacionv] = useState('')
   const [codeInput, setCodeInput] = useState('');
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -43,6 +44,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
       handleClose();
       let messageApproved = `la proforma ${offer} ha sido aprobada con el  token ${code} `;
       let telAprobacion  = await  TelDirComercial()
+      settelAprobacionv(telAprobacion)
       let resmessage = await sendMessage(telAprobacion,messageApproved); 
       await sendMessage(phoneNumberSeller,messageApproved); 
       const responseInvoice = await serviceInvoice("02",offer,"0",localStorage.getItem('margenInterno'),code,resmessage,""); // actualizamos el estado de la aprobacion
@@ -73,7 +75,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
         <Modal.Body>
           <Form >
             <Form.Group controlId="formBasicEmail">
-              <Form.Label><b>Ingrese El codigo enviado a {phoneNumber}</b></Form.Label>
+              <Form.Label><b>Ingrese El codigo enviado a {telAprobacionv}</b></Form.Label>
               <Form.Control 
                 type="text"
                 placeholder="Codigo de Cofirmacion"
