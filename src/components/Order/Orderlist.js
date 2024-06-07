@@ -4,7 +4,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { useState, useEffect } from 'react';
 import Loader from '../loader/loader';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Alert, Button, ButtonGroup } from 'react-bootstrap';
 import {MargeInterno} from "../../hooks/MargenInterno"
 import { MdCancel } from "react-icons/md";
 import { FaCircleCheck } from "react-icons/fa6";
@@ -98,9 +98,21 @@ export default function Orderlist() {
   if (loading) {
     return   <Loader/>;
   }
+ 
+if(typeof localStorage.getItem("zona") == "undefined" ){
+  return <div>
+    <Alert  variant="danger">
+      Error:  No tienes zona de venta matricualda para realizar esta operacion
+    </Alert>
+    </div>;
+}  
 
 if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div>      
+      <Alert  variant="danger">
+      Error: {error.message}
+    </Alert>
+      </div>;
   }
 
   return (
