@@ -50,7 +50,7 @@ const Login = () => {
         navigate('/listquote/');
       } else {
         setIntentos(intentos - 1)
-        if(intentos === 0){
+        if(intentos <= 0){
           setError(`Usuario Bloqueado validar Con TI para desbloquear.`);
         }else{
           setError(`Nombre de usuario o contraseña incorrectos, te quedan ${intentos}.`);
