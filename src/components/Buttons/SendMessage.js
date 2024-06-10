@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import ModalMessage from '../Modal/ModalMessage';
 import Spinner from 'react-bootstrap/Spinner';
 import { TelDirComercial } from '../../hooks/GetDirComercial';
+import { serviceInvoice } from '../../service/invoice';
 
 
 function SendMessage({data}) {
@@ -29,6 +30,8 @@ const handleClickSendMessage = async (data) => {
             if(result.sent){
                 setModalMessage(`proforma enviada aprobación, porque no cumple con el margen esperado `)
                 setLoading(false);
+                const service = await serviceInvoice("11",documento,"0","0","","",""); // actualizamos la apertura del cliente 
+                console.log ("*********ENVIADO APROBACION COMERCIAL****************",service)
                 handleShowModal()
             }else{
                 setModalMessage("error al enviar el mensaje validar con tecnologias de la informacion")
@@ -49,6 +52,8 @@ const handleClickSendMessage = async (data) => {
         if(reswp.sent){
           setModalMessage(`proforma enviada al cliente, para su respectiva aprobacion`)
           setLoading(false);
+          const service = await serviceInvoice("12",documento,"0","0","","",""); // actualizamos la apertura del cliente 
+          console.log ("*********ENVIADO APROBACION DEL CLIENTE****************",service)
           handleShowModal()
       }else{
           setModalMessage("error al enviar el mensaje validar con tecnologias de la informacion")

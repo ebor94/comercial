@@ -14,6 +14,8 @@ import { IoCheckmark } from "react-icons/io5";
 import SendMessage from '../Buttons/SendMessage';
 import { CiUnlock } from "react-icons/ci";
 import ViewQuote from '../Buttons/ViewQuote';
+import Margin from './MarginAliado';
+import RenderIcon from './RenderIcon';
 
 
 
@@ -48,7 +50,7 @@ export default function Orderlist() {
       }
       const result = await response.json();
       
-      for (const iterator of result) {
+      /* for (const iterator of result) {
         if(iterator.margeninterno === 0){
         iterator.margeninterno = await  calculateMargin(iterator.documento, iterator.identificacion,"interno")
       }
@@ -56,7 +58,7 @@ export default function Orderlist() {
         iterator.margenaliado = await  calculateMargin(iterator.documento, iterator.identificacion,"aliado")
       }
         //console.log(iterator)
-      }  
+      }   */
       quotesIterada.push(result)   
       
       }
@@ -83,8 +85,23 @@ export default function Orderlist() {
   
   }, [])
 
+  const updateMarginInterno = (index, newMargin) => {
+    setQuotes(prevData => {
+      const updatedData = [...prevData];
+      updatedData[index].margeninterno = newMargin;
+      return updatedData;
+    });
+  };
 
-  const calculateMargin = async (doc, cte, tipo) => {
+  const updateMarginAliado = (index, newMargin) => {
+    setQuotes(prevData => {
+      const updatedData = [...prevData];
+      updatedData[index].margenaliado = newMargin;
+      return updatedData;
+    });
+  };
+
+ /*  const calculateMargin = async (doc, cte, tipo) => {
 
     try {
       const result = await MargeInterno(doc, cte, tipo);
@@ -93,7 +110,7 @@ export default function Orderlist() {
       return err;
     }
   
-  };
+  }; */
 
   if (loading) {
     return   <Loader/>;
@@ -127,7 +144,7 @@ if (error) {
           <th >Zona</th>
           <th >Vendedor</th>
           <th >Contacto Comercial</th>
-          <th >Margen Interno</th>
+          <th >Margen Interno</th>         
           <th >Margen Aliado</th>
           <th >Aprobacion Comercial</th>
           <th >Aprobacion Del cliente</th>
@@ -143,14 +160,33 @@ if (error) {
             <td >{data.nombre}</td>
             <td >{data.zonav}</td>
             <td >{data.vendedor}</td>
-            <td >{data.telefono } </td>
-            <td >{data.margeninterno}</td>
-            <td >{data.margenaliado}</td>
+            <td >{data.telefono } </td>           
             <td >
-            {data.margeninterno >= 42 ? (<CiUnlock style={{ color: 'green', fontSize: '24px' }} />  ) : data.aprobgte === "1" ? <IoCheckmark style={{ color: 'green', fontSize: '24px' }} /> : <IoIosClose style={{ color: 'red', fontSize: '24px' }}/>  }
-             </td>
-
-            <td >{data.aprobcte === "1" ? <IoCheckmark style={{ color: 'green', fontSize: '24px' }} /> : <IoIosClose style={{ color: 'red', fontSize: '24px' }}/>  }</td>
+              <Margin
+               quote={data.documento}
+               identificacion={data.identificacion}
+               tipo={"interno"}
+               onUpdateMargin={(newMargin) => updateMarginInterno(index, newMargin)}                
+              />
+            </td>
+            <td >
+              <Margin
+               quote={data.documento}
+               identificacion={data.identificacion} 
+               tipo={"aliado"} 
+               onUpdateMargin={(newMargin) => updateMarginAliado(index, newMargin)}
+               />
+            </td>
+            <td>  
+              <RenderIcon
+              data={data}
+              filtro={"AprobacionComercial"} 
+              />          
+            </td>
+            <RenderIcon
+              data={data}
+              filtro={"AprobacionCliente"} 
+              />  
             <td >{data.fechaaperturacte !=="" ?  data.fechaaperturacte+"/"+data.horaaperturacte : <IoIosClose style={{ color: 'red', fontSize: '24px' }}/> }</td>           
             <td>
               <ButtonGroup size="md" className="mb-2">

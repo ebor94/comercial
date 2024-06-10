@@ -43,7 +43,7 @@ export const MargeInterno = async  (quote, cte, tipo) => {
 
       } catch (error) {
         console.error('There was a problem with the fetch operation:', error);
-        return(error);
+        return(0) ;
       }
 
 }
