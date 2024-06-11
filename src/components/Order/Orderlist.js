@@ -4,15 +4,11 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { useState, useEffect } from 'react';
 import Loader from '../loader/loader';
-import { Alert, Button, ButtonGroup } from 'react-bootstrap';
-import {MargeInterno} from "../../hooks/MargenInterno"
+import { Alert,  ButtonGroup } from 'react-bootstrap';
 import { MdCancel } from "react-icons/md";
 import { FaCircleCheck } from "react-icons/fa6";
-import { LuTrash2 } from "react-icons/lu";
 import { IoIosClose } from "react-icons/io";
-import { IoCheckmark } from "react-icons/io5";
 import SendMessage from '../Buttons/SendMessage';
-import { CiUnlock } from "react-icons/ci";
 import ViewQuote from '../Buttons/ViewQuote';
 import Margin from './MarginAliado';
 import RenderIcon from './RenderIcon';

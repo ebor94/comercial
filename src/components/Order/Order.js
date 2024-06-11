@@ -70,7 +70,7 @@ const Order = () => {
       };        
       postData();
       
-    }, []); 
+    }); 
   
     const taxRate = 0.19; 
   

@@ -22,42 +22,54 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
 
     const postData = async () => {
 
-      const resServiceInvoice = await serviceInvoice("99",offer,"0","","","","");
+     // const resServiceInvoice = await serviceInvoice("99",offer,"0","","","","");
       //let datainvoice = await resServiceInvoice.
-      if(resServiceInvoice[0].aprobcte === "1"){
-        setdisabledButton(true);
-        settitleButtonaprob('proforma ya aprobada....');
-      }
+      // if(resServiceInvoice[0].aprobcte === "1"){
+      //   setdisabledButton(true);
+      //   settitleButtonaprob('proforma ya aprobada....');
+      // }
 
       
     }   
    
     postData()
-  }, [offer ])
+  }, [ ])
   
   
    
   const handleClick =  async (message) => {
+
+    let numeroTelCte  = phoneNumber.split("-") 
+    console.log(numeroTelCte)
+
     setLoading(true); 
     const pin = Math.floor(Math.random() * 10000);
     let textPin = pin.toString();
     let textApproved = `Token ${textPin} para aprobar la proforma ${message}`
     setCode(textPin)
-    let resMensage = await sendMessage(phoneNumber,textApproved)
-    const reswp =  JSON.parse(resMensage)
+    console.log(phoneNumber)
+
+    for( const itNumero of numeroTelCte){
+      console.log(itNumero,textApproved)
+     let resMensage = await sendMessage(itNumero,textApproved)
+     const reswp =  JSON.parse(resMensage)
     await sendMessage(phoneNumberSeller,textApproved) 
-    console.log(resMensage)
-    
+    console.log(phoneNumberSeller,textApproved)
     if(reswp.sent){
       const resServiceInvoice = await serviceInvoice("07",offer,"0","",textPin,resMensage,""); // actualizamos respuesta del envio de whatsapp 
       console.log("******respuesta de whatsapp*******",reswp)
       console.log("*****envio whatsapp(07)********",resServiceInvoice)    
-      handleShow();
+     
 
-    }else{
-        alert("error al enviar el mensaje validar con tecnologias de la informacion", phoneNumber)
-        setLoading(false)
+    } else{
+      alert("error al enviar el mensaje validar con tecnologias de la informacion", phoneNumber)
+      setLoading(false)
+  }
+
     }
+    handleShow();
+    
+  
   };
 
 
