@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import ModalMessage from '../Modal/ModalMessage';
 import Spinner from 'react-bootstrap/Spinner';
 import { TelDirComercial } from '../../hooks/GetDirComercial';
+import { serviceInvoice } from '../../service/invoice';
 
 
 function SendMessage({data}) {
@@ -21,7 +22,7 @@ const handleClickSendMessage = async (data) => {
  const {telefono, margeninterno, aprobgte,  documento ,identificacion} = data;
     if(telefono){
         if(margeninterno < 42 && !aprobgte ){
-            let messageApproved = `la proforma ${documento} necesita ser aprobada porque no cumple con el margen esperado ver proforma en ${url}/quotegte/?LCODIGO=${documento}&cte=${identificacion}`;
+            let messageApproved = `la proforma ${documento} necesita ser aprobada porque no cumple con el margen esperado ver proforma en ${url}/quotegte/${documento}/${identificacion}`;
             let telAprobacion  = await  TelDirComercial()
             let resmessage = await sendMessage(telAprobacion,messageApproved); 
             const result =  JSON.parse(resmessage)
@@ -29,6 +30,8 @@ const handleClickSendMessage = async (data) => {
             if(result.sent){
                 setModalMessage(`proforma enviada aprobación, porque no cumple con el margen esperado `)
                 setLoading(false);
+                const service = await serviceInvoice("11",documento,"0","0","","",""); // actualizamos la apertura del cliente 
+                console.log ("*********ENVIADO APROBACION COMERCIAL****************",service)
                 handleShowModal()
             }else{
                 setModalMessage("error al enviar el mensaje validar con tecnologias de la informacion")
@@ -42,13 +45,15 @@ const handleClickSendMessage = async (data) => {
         console.log(numeroTelCte)
         for( const itNumero of numeroTelCte){
 
-          let messageApprovedcte = `Ceramica italia ha generado la proforma ${documento} y necesita ser aprobada,  ver proforma en ${url}/quote/?LCODIGO=${documento}&cte=${identificacion}`;
+          let messageApprovedcte = `Ceramica italia ha generado la proforma ${documento} y necesita ser aprobada,  ver proforma en ${url}/quote/${documento}/${identificacion}`;
         let resmessagecte = await sendMessage(itNumero,messageApprovedcte); 
         const reswp =  JSON.parse(resmessagecte)
         
         if(reswp.sent){
           setModalMessage(`proforma enviada al cliente, para su respectiva aprobacion`)
           setLoading(false);
+          const service = await serviceInvoice("12",documento,"0","0","","",""); // actualizamos la apertura del cliente 
+          console.log ("*********ENVIADO APROBACION DEL CLIENTE****************",service)
           handleShowModal()
       }else{
           setModalMessage("error al enviar el mensaje validar con tecnologias de la informacion")

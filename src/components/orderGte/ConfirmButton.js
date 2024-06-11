@@ -4,7 +4,7 @@ import { Modal, Button, Form } from 'react-bootstrap';
 import { serviceInvoice } from '../../service/invoice';
 import { TelDirComercial } from '../../hooks/GetDirComercial';
 
-const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfirm}) => {
+const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfirm, customer}) => {
 
   const [show, setShow] = useState(false);
   const [code, setCode] = useState('');
@@ -42,11 +42,12 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
     let codeI =  codeInput.trim()
     if(codeI === code){
       handleClose();
-      let messageApproved = `la proforma ${offer} ha sido aprobada con el  token ${code} `;
+      let messageApproved = `la proforma ${offer} del aliado ${customer},  ha sido aprobada con el  token ${code} `;
       let telAprobacion  = await  TelDirComercial()
       settelAprobacionv(telAprobacion)
       let resmessage = await sendMessage(telAprobacion,messageApproved); 
       await sendMessage(phoneNumberSeller,messageApproved); 
+      
       const responseInvoice = await serviceInvoice("02",offer,"0",localStorage.getItem('margenInterno'),code,resmessage,""); // actualizamos el estado de la aprobacion
       console.log("*****aprobacion comercial(02)********",responseInvoice)
       alert('aprobacion exitosa');

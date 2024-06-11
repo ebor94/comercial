@@ -24,7 +24,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
 
       const resServiceInvoice = await serviceInvoice("99",offer,"0","","","","");
       //let datainvoice = await resServiceInvoice.
-      if(resServiceInvoice[0].aprobcte ){
+      if(resServiceInvoice[0].aprobcte === "1"){
         setdisabledButton(true);
         settitleButtonaprob('proforma ya aprobada....');
       }
