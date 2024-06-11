@@ -22,7 +22,7 @@ const handleClickSendMessage = async (data) => {
  const {telefono, margeninterno, aprobgte,  documento ,identificacion} = data;
     if(telefono){
         if(margeninterno < 42 && !aprobgte ){
-            let messageApproved = `la proforma ${documento} necesita ser aprobada porque no cumple con el margen esperado ver proforma en ${url}/quotegte/?LCODIGO=${documento}&cte=${identificacion}`;
+            let messageApproved = `la proforma ${documento} necesita ser aprobada porque no cumple con el margen esperado ver proforma en ${url}/quotegte/${documento}/${identificacion}`;
             let telAprobacion  = await  TelDirComercial()
             let resmessage = await sendMessage(telAprobacion,messageApproved); 
             const result =  JSON.parse(resmessage)
@@ -45,7 +45,7 @@ const handleClickSendMessage = async (data) => {
         console.log(numeroTelCte)
         for( const itNumero of numeroTelCte){
 
-          let messageApprovedcte = `Ceramica italia ha generado la proforma ${documento} y necesita ser aprobada,  ver proforma en ${url}/quote/?LCODIGO=${documento}&cte=${identificacion}`;
+          let messageApprovedcte = `Ceramica italia ha generado la proforma ${documento} y necesita ser aprobada,  ver proforma en ${url}/quote/${documento}/${identificacion}`;
         let resmessagecte = await sendMessage(itNumero,messageApprovedcte); 
         const reswp =  JSON.parse(resmessagecte)
         

@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import OrderItem2 from '../Order/OrderItem';
 import { useEffect, useState } from 'react';
 
-export default function ModalViewQuote({show, handleClose, data}) {
+export default function ModalViewQuote({show, handleClose, data, nameCte}) {
   const [quote, setQuote] = useState(data)
   useEffect(() => {
     setQuote(data)
@@ -24,9 +24,13 @@ export default function ModalViewQuote({show, handleClose, data}) {
       <div className="logo-container">
         <img src="https://web.ceramicaitalia.com/log.png" alt="Logo" className="logo" />
       </div>
+      <div className="logo-container">        
+        <h3>{nameCte}</h3>
+      </div>
        
       
       <div className="order-list">
+        
        
       {quote.map((data, index) => (
           <OrderItem2

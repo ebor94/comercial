@@ -5,6 +5,7 @@ import ConfirmButton from './ConfirmButton';
 import {serviceInvoice} from '../../service/invoice'
 import { useEffect, useState} from 'react';
 import Loader from '../loader/loader';
+import { useParams } from 'react-router-dom';
 
 
 const Order = () => { 
@@ -17,18 +18,21 @@ const Order = () => {
     const [colorButtonConfirm, setcolorButtonConfirm] = useState('confirm-button');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-  
+    const { lcodigo } = useParams();
+    const { cte } = useParams();
     useEffect(() => {
       const postData = async () => {
-        const myKeysValues =  window.location.search;
-        const urlParams = new URLSearchParams(myKeysValues);
-        const quote = urlParams.get("LCODIGO")
-        const cte =  urlParams.get("cte");
+        //const myKeysValues =  window.location.search;
+       // const urlParams = new URLSearchParams(myKeysValues);
+        //const quote = urlParams.get("LCODIGO")
+        //const cte =  urlParams.get("cte");
+
+        
         //console.log(quote);
       
         // Datos que vamos a enviar en el cuerpo de la solicitud
         const raw = JSON.stringify({
-          "LCODIGO": quote,
+          "LCODIGO": lcodigo,
           "LTIPO": "C",
           "TPROCESO": "S",
           "PCODSOLICITANTE": "",

@@ -16,6 +16,7 @@ import { CiUnlock } from "react-icons/ci";
 import ViewQuote from '../Buttons/ViewQuote';
 import Margin from './MarginAliado';
 import RenderIcon from './RenderIcon';
+import NavBar from '../navBar/NavBar';
 
 
 
@@ -133,6 +134,7 @@ if (error) {
   }
 
   return (
+    <><NavBar />
     <Container >
     <div className='mb-5 text-center'><h2 style={{color : "#615f5f"}}>Proformas a Gestionar</h2></div>
     <Row className="justify-content-md-center">
@@ -194,6 +196,7 @@ if (error) {
                 <ViewQuote 
                 cte={data.identificacion}
                 quote={data.documento}
+                nameCte={data.nombre}
                 />
                     
               </ButtonGroup>
@@ -206,5 +209,6 @@ if (error) {
     </Table>
     </Row>
     </Container>
+    </>
   )
 }

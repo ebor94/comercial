@@ -8,7 +8,7 @@ import Login from './components/Login/LoginS';
 import Home from './components/Home/Home';
 import Sidebar from './components/Sidebar/sidebar';
 import { useState } from 'react';
-import NavBar from './components/navBar/NavBar';
+/* import NavBar from './components/navBar/NavBar'; */
 import Orderlist from './components/Order/Orderlist';
 
  //?LCODIGO=0010513436&cte=0000109476
@@ -28,7 +28,7 @@ const App = () => {
 const MainLayout = () => {
   const location = useLocation();
   const [isSidebarOpen, setSidebarOpen] = useState(false);
-  const noNavbarPaths = ['/','/quote/'];
+/*   const noNavbarPaths = ['/','/quote/','/quotegte/']; */
   const showSidebar = location.pathname === '/listquote/' ||  location.pathname === '/Home/'  ;
   const toggleSidebar = () => {
     setSidebarOpen(!isSidebarOpen);
@@ -36,7 +36,7 @@ const MainLayout = () => {
 
   return (
     <>
-     {!noNavbarPaths.includes(location.pathname) && <NavBar />}
+{/*      {!noNavbarPaths.includes(location.pathname) && <NavBar />} */}
       <div className="main-layout">  
               
           {showSidebar && <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />}
@@ -51,8 +51,8 @@ const MainLayout = () => {
           <Route path="/" element={<Login />} />
           <Route path="/Home/" element={<Home />} />
           <Route path="/listquote/" element={<Orderlist />} />
-          <Route path="/quote/" element={<Order />} />
-          <Route path="/quotegte/" element={<OrderGte />} />
+          <Route path="/quote/:lcodigo/:cte" element={<Order />} />
+          <Route path="/quotegte/:lcodigo/:cte" element={<OrderGte />} />
        </Routes>
           </div>
       </div>

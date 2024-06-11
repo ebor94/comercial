@@ -4,7 +4,7 @@ import ModalViewQuote from '../Modal/ModalViewQuote'
 import { Button } from 'react-bootstrap';
 import {  AiFillEye } from "react-icons/ai";
 
-export default function ViewQuote({cte, quote}) {
+export default function ViewQuote({cte, quote, nameCte}) {
 
     const [modalShow, setModalShow] = useState(false);
     const [loading, setLoading] = useState(true);
@@ -82,6 +82,7 @@ export default function ViewQuote({cte, quote}) {
    show={modalShow}
    handleClose={handleCloseModal}
    data={responseData}
+   nameCte={nameCte}
    
    />
    </>
