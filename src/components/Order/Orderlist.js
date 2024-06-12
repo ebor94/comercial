@@ -13,6 +13,7 @@ import ViewQuote from '../Buttons/ViewQuote';
 import Margin from './MarginAliado';
 import RenderIcon from './RenderIcon';
 import NavBar from '../navBar/NavBar';
+import GenerateLink from '../Buttons/GenerateLink';
 
 
 
@@ -193,6 +194,10 @@ if (error) {
                 cte={data.identificacion}
                 quote={data.documento}
                 nameCte={data.nombre}
+                />
+                <GenerateLink
+                cte={data.identificacion}
+                quote={data.documento}                
                 />
                     
               </ButtonGroup>
