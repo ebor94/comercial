@@ -74,7 +74,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
 
 
   const sendMessage = async(phoneNumber, message) =>{
-    const raw = JSON.stringify({ "phoneNumber": phoneNumber, "message": message, platform:"W"  })
+    const raw = JSON.stringify({ "phoneNumber": "57"+phoneNumber, "message": message, platform:"W"  })
      return await fetch("https://lilix.ceramicaitalia.com:3001/mensajeria", {method: "POST", headers: {'Content-Type': 'application/json'}, body : raw})
      .then((response) => response.text())
      .then((result) =>{      
