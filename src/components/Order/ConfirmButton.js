@@ -5,7 +5,7 @@ import { serviceInvoice } from '../../service/invoice';
 import {SaleDocument}  from '../../hooks/order';
 import ModalMessage from '../Modal/ModalMessage';
 
-const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfirm, customer}) => {
+const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfirm, customer, idcte}) => {
 
   const [show, setShow] = useState(false);
   const [message, setMessage] = useState("")
@@ -17,6 +17,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [isLoading, setLoading] = useState(false);
+  const url = window.location.origin;
 
   useEffect( () => {
 
@@ -33,7 +34,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
     }   
    
     postData()
-  }, [ ])
+  }, [])
   
   
    
@@ -90,7 +91,8 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
     let codeI =  codeInput.trim()
     if(codeI === code){
       handleClose();
-      let messageApproved = `la proforma  ${offer} del aliado ${customer} , ha sido aprobada con el token ${code} `;
+      let messageApproved = `la proforma  ${offer} del aliado ${customer} , ha sido aprobada con el token ${code}  ver proforma en ${url}/quotegte/${offer}/${idcte} `;
+    
       let resmessage = await sendMessage(phoneNumber,messageApproved); 
       await sendMessage(phoneNumberSeller,messageApproved); 
       const responseInvoice = await serviceInvoice("03",offer,"0",localStorage.getItem('margenInterno'),code,resmessage,""); // actualizamos el estado de la aprobacion
@@ -101,7 +103,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
         setMessage(`Aprobacion Exitosa pedido registrado ${order}...`)
         setdisabledButton(true)
         settitleButtonaprob('proforma ya aprobada')
-        let messageApprovedOrder = `la proforma  ${offer} del aliado ${customer} , ha sido aprobada con el token ${code} y se creo el pedido ${order} `;
+        let messageApprovedOrder = `Se informa que el Aliado ${customer} aprobó la oferta ${offer} ,   ${url}/quotegte/${offer}/${idcte}  para el proceso de aprobación cual usó el token ${code} enviado al teléfono ${phoneNumber} y se creo el pedido ${order} `
         await sendMessage(phoneNumberSeller,messageApprovedOrder);
         let numberUser =  localStorage.getItem("celluser") 
         await sendMessage(numberUser,messageApprovedOrder);

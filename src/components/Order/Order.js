@@ -121,6 +121,7 @@ const Order = () => {
          phoneNumberSeller={phoneNumberSeller} 
          colorButtonConfirm={colorButtonConfirm}
          customer={customer}
+         idcte={cte}
          
          
          />
