@@ -20,6 +20,7 @@ const Order = () => {
     const [error, setError] = useState(null);
     const { lcodigo } = useParams();
     const { cte } = useParams();
+    
     useEffect(() => {
       const postData = async () => {
         //const myKeysValues =  window.location.search;
@@ -51,6 +52,7 @@ const Order = () => {
           }
           // Obteniendo los datos de la respuesta
           const result = await response.json();
+          
           console.log (result)  
           setOffer(result[0].pedido)
           setphoneNumber(result[0].telf1)
@@ -70,7 +72,7 @@ const Order = () => {
       };        
       postData();
       
-    }); 
+    },[]); 
   
     const taxRate = 0.19; 
   
@@ -114,6 +116,7 @@ const Order = () => {
           onValueChange={handleColorChange} 
           
          />
+        
           <div className="app-container">
         <ConfirmButton
          offer={offer}
