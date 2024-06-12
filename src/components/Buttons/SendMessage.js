@@ -17,7 +17,7 @@ function SendMessage({data}) {
     const url = window.location.origin;
 
 const handleClickSendMessage = async (data) => {
-    //console.log(data)
+    console.log(data)
     setLoading(true);   
  const {telefono, margeninterno, aprobgte,  documento ,identificacion} = data;
     if(telefono){
@@ -26,7 +26,7 @@ const handleClickSendMessage = async (data) => {
             let telAprobacion  = await  TelDirComercial()
             let resmessage = await sendMessage(telAprobacion,messageApproved); 
             const result =  JSON.parse(resmessage)
-            
+            console.log(result)
             if(result.sent){
                 setModalMessage(`proforma enviada aprobación, porque no cumple con el margen esperado `)
                 setLoading(false);
@@ -44,10 +44,11 @@ const handleClickSendMessage = async (data) => {
         let numeroTelCte  = telefono.split("-") 
         console.log(numeroTelCte)
         for( const itNumero of numeroTelCte){
-
+          console.log(itNumero)
           let messageApprovedcte = `Ceramica italia ha generado la proforma ${documento} y necesita ser aprobada,  ver proforma en ${url}/quote/${documento}/${identificacion}`;
-        let resmessagecte = await sendMessage(itNumero,messageApprovedcte); 
+        let resmessagecte = await sendMessage("57"+itNumero,messageApprovedcte); 
         const reswp =  JSON.parse(resmessagecte)
+        console.log(reswp)
         
         if(reswp.sent){
           setModalMessage(`proforma enviada al cliente, para su respectiva aprobacion`)
@@ -56,7 +57,7 @@ const handleClickSendMessage = async (data) => {
           console.log ("*********ENVIADO APROBACION DEL CLIENTE****************",service)
           handleShowModal()
       }else{
-          setModalMessage("error al enviar el mensaje validar con tecnologias de la informacion")
+          setModalMessage("error al enviar el mensaje validar con tecnologias de la informacion *****")
           setLoading(false);
           handleShowModal()
       }
