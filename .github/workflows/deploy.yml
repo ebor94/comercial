@@ -1,0 +1,22 @@
+name: Deploy to Production quote app
+
+on:
+  push:
+    branches:
+      - main  # rama principal
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up SSH
+      uses: webfactory/ssh-agent@v0.5.3
+      with:
+        ssh-private-key: ${{ secrets.APP_QUOTE_KEY }}
+
+    - name: Deploy to server 1025
+      run: 
+        ssh gitcisa@200.75.50.170 'cd /app01/CICD/quote-app && git fetch && git reset --hard origin/main'
