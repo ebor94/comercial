@@ -105,8 +105,8 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
         settitleButtonaprob('proforma ya aprobada')
         let messageApprovedOrder = `Se informa que el Aliado ${customer} aprobó la oferta ${offer} ,   ${url}/quotegte/${offer}/${idcte}  para el proceso de aprobación cual usó el token ${code} enviado al teléfono ${phoneNumber} y se creo el pedido ${order} `
         await sendMessage(phoneNumberSeller,messageApprovedOrder);
-        let numberUser =  localStorage.getItem("celluser") 
-        await sendMessage(numberUser,messageApprovedOrder);
+        // let numberUser =  localStorage.getItem("celluser") 
+        // await sendMessage(numberUser,messageApprovedOrder);
       }else{
         setMessage("error al crear pedido ...")
       }
