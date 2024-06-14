@@ -16,13 +16,15 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.APP_QUOTE_KEY }}
       run: |
         mkdir -p ~/.ssh
-        echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/ssh_gitcisa
-        chmod 600 ~/.ssh/ssh_gitcisa
-        ls -la ~/.ssh
-        cat ~/.ssh/ssh_gitcisa
-        eval $(ssh-agent -s)
-        ssh-add ~/.ssh/ssh_gitcisa
-        ssh-keyscan -p 34825 your-server.com >> ~/.ssh/known_hosts
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/ssh_gitcisa
+          chmod 600 ~/.ssh/ssh_gitcisa
+          eval $(ssh-agent -s)
+          ssh-add ~/.ssh/ssh_gitcisa
+          ssh-keyscan -p 34825 your-server.com >> ~/.ssh/known_hosts
+          echo "SSH setup completed"
+          ls -la ~/.ssh
+          cat ~/.ssh/ssh_gitcisa
+          cat ~/.ssh/known_hosts
 
     - name: Test SSH Connection
       run: |
