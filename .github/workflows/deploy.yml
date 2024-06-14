@@ -10,26 +10,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
-    - name: Setup SSH
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.APP_QUOTE_KEY }}
-      run: |
-        mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ~/.ssh/ssh_gitcisa
-          chmod 600 ~/.ssh/ssh_gitcisa
-          eval $(ssh-agent -s)
-          ssh-add ~/.ssh/ssh_gitcisa
-          ssh-keyscan -p 34825 gitcisa@200.75.50.170 >> ~/.ssh/known_hosts
-          echo "SSH setup completed"
-          ls -la ~/.ssh
-          cat ~/.ssh/ssh_gitcisa
-          cat ~/.ssh/known_hosts
-
-    - name: Test SSH Connection
-      run: |
-        ssh -v -p 34825 gitcisa@200.75.50.170 "echo SSH connection successful"
-      
+     
 
     - name: Set up SSH
       uses: webfactory/ssh-agent@v0.5.3
