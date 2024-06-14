@@ -19,4 +19,4 @@ jobs:
 
     - name: Deploy to server 1025
       run: 
-        ssh -T -p 34825 gitcisa@200.75.50.170 'cd /app01/CICD/quote-app && git fetch && git reset --hard origin/main'
+        ssh  -p 34825 gitcisa@200.75.50.170 'cd /app01/CICD/quote-app && git fetch && git reset --hard origin/main'
