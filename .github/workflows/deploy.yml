@@ -11,7 +11,7 @@ jobs:
     steps:
     - name: Setup SSH
       env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_PRIVATE_KEY: ${{ secrets.APP_QUOTE_KEY }}
       run: |
           mkdir -p ~/.ssh
           echo "$SSH_PRIVATE_KEY" > ~/.ssh/ssh_gitcisa
