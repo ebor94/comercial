@@ -21,4 +21,4 @@ jobs:
     - name: Deploy to server 1025
       run:
         #ssh -o StrictHostKeyChecking=no -p 34825 gitcisa@200.75.50.170 'cd /app01/CICD/quote-app && git fetch && git reset --hard origin/main && npm install && npm run build'
-        ssh -vvv -o StrictHostKeyChecking=no -p 34825 gitcisa@200.75.50.170 'git fetch && git reset --hard origin/main'
+        ssh -vvv -o StrictHostKeyChecking=no -p 34825 root@200.75.50.170 'git fetch && git reset --hard origin/main'
