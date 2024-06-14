@@ -7,19 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Setup SSH
-      env:
-          SSH_PRIVATE_KEY: ${{ secrets.APP_QUOTE_KEY }}
-      run: |
-          mkdir -p ~/.ssh
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/ssh_gitcisa
-          chmod 600 ~/.ssh/ssh_gitcisa
-          eval $(ssh-agent -s)
-          ssh-add ~/.ssh/ssh_gitcisa
-          ssh-keyscan -p 34825 gitcisa@200.75.50.170 >> ~/.ssh/known_hosts
-          
     - name: Checkout code
       uses: actions/checkout@v2
       
