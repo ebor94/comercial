@@ -20,7 +20,7 @@ jobs:
           chmod 600 ~/.ssh/ssh_gitcisa
           eval $(ssh-agent -s)
           ssh-add ~/.ssh/ssh_gitcisa
-          ssh-keyscan -p 34825 your-server.com >> ~/.ssh/known_hosts
+          ssh-keyscan -p 34825 gitcisa@200.75.50.170 >> ~/.ssh/known_hosts
           echo "SSH setup completed"
           ls -la ~/.ssh
           cat ~/.ssh/ssh_gitcisa
