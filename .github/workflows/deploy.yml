@@ -32,5 +32,5 @@ jobs:
           REMOTE_PATH: ${{ secrets.USER25 }}
           SSH_PORT: ${{ secrets.SSH_HOST25 }}
         run: |
-         # ssh-keyscan -p $SSH_PORT $SSH_HOST >> ~/.ssh/known_hosts
+          ssh-keyscan -p 34825 200.75.50.170 >> ~/.ssh/known_hosts
           rsync -avz -e "ssh -p 34825 gitcisa@200.75.50.170" --delete-after build/ gitcisa@200.75.50.170:$REMOTE_PATH
