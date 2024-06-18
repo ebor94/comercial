@@ -27,7 +27,7 @@ jobs:
       - name: Deploy to server
         env:
           SSH_PRIVATE_KEY: ${{ secrets.APP_QUOTE_KEY }}
-          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_HOST: ${{ secrets.SSH_HOST25 }}
           SSH_USER: ${{ secrets.USER25 }}
           REMOTE_PATH: ${{ secrets.USER25 }}
           SSH_PORT: ${{ secrets.SSH_HOST25 }}
