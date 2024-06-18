@@ -71,7 +71,7 @@ const Order = () => {
           }           
       };        
       postData();
-      
+       // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]); 
   
     const taxRate = 0.19; 
