@@ -6,7 +6,7 @@ export default function ModalViewQuote({show, handleClose, data, nameCte}) {
   const [quote, setQuote] = useState(data)
   useEffect(() => {
     setQuote(data)
-  }, [])
+  }, [data])
   
 
   return (
