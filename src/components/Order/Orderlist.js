@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import Table  from 'react-bootstrap/Table';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -83,21 +83,21 @@ export default function Orderlist() {
   
   }, [])
 
-  const updateMarginInterno = (index, newMargin) => {
+  const updateMarginInterno = useCallback((index, newMargin) => {
     setQuotes(prevData => {
       const updatedData = [...prevData];
       updatedData[index].margeninterno = newMargin;
       return updatedData;
     });
-  };
+  },[]);
 
-  const updateMarginAliado = (index, newMargin) => {
+  const updateMarginAliado =useCallback( (index, newMargin) => {
     setQuotes(prevData => {
       const updatedData = [...prevData];
       updatedData[index].margenaliado = newMargin;
       return updatedData;
     });
-  };
+  },[]);
 
  /*  const calculateMargin = async (doc, cte, tipo) => {
 

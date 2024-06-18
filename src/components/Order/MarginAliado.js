@@ -4,22 +4,22 @@ import Spinner from 'react-bootstrap/Spinner';
 import { MargeInterno } from '../../hooks/MargenInterno';
 
 export default function Margin({quote , identificacion, tipo, onUpdateMargin }) {
-    const [doc, setDoc] = useState(quote)
-    const [bp, setBp] = useState(identificacion)
+    // const [doc, setDoc] = useState(quote)
+    // const [bp, setBp] = useState(identificacion)
     const [loading, setLoading] = useState(true)
     const [margen,  setMargen] = useState(0)
 
     useEffect(() => {
-        setDoc(quote)
-        setBp(identificacion)
-        console.log(doc,bp,tipo)
-        calculateMargin(doc,bp,tipo).then((result) => {
+       // setDoc(quote)
+       // setBp(identificacion)
+        //console.log(doc,bp,tipo)
+        calculateMargin(quote,identificacion,tipo).then((result) => {
             setMargen(result)
             onUpdateMargin(result) 
             setLoading(false)
         })
-        
-    }, [])
+    // eslint-disable-next-line react-hooks/exhaustive-deps    
+    }, [quote , identificacion, tipo])
 
 
     const calculateMargin = async (doc, cte, tipo) => {
