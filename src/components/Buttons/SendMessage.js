@@ -63,9 +63,6 @@ const handleClickSendMessage = async (data) => {
       }
 
         }
-        
-
-      
 
     }else{
         setModalMessage('Por favor ingrese un numero de telefono')

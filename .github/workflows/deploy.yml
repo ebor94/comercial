@@ -1,22 +1,39 @@
-name: Deploy to Production quote app
+name: Build and Deploy quote app
 
 on:
   push:
     branches:
-      - main  # rama principal
+      - main  # Cambia esto si usas otra rama principal
+
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up SSH
-      uses: webfactory/ssh-agent@v0.5.3
-      with:
-        ssh-private-key: ${{ secrets.APP_QUOTE_KEY }}
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '18'  # Asegúrate de que esta versión coincida con tu entorno de desarrollo
 
-    - name: Deploy to server 1025
-      run: 
-        ssh gitcisa@200.75.50.170 'cd /app01/CICD/quote-app && git fetch && git reset --hard origin/main'
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build the app
+        run: npm run build
+
+      - name: Deploy to server
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.APP_QUOTE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_USER: ${{ secrets.USER25 }}
+          REMOTE_PATH: ${{ secrets.USER25 }}
+          SSH_PORT: ${{ secrets.SSH_HOST25 }}
+        run: |
+          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+          mkdir -p ~/.ssh
+          ssh-keyscan -p $SSH_PORT $SSH_HOST >> ~/.ssh/known_hosts
+          rsync -avz -e "ssh -p $SSH_PORT" --delete-after build/ $SSH_USER@$SSH_HOST:$REMOTE_PATH
+     
