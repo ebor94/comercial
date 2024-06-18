@@ -32,7 +32,5 @@ jobs:
           REMOTE_PATH: ${{ secrets.USER25 }}
           SSH_PORT: ${{ secrets.SSH_HOST25 }}
         run: |
-          echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
-          mkdir -p ~/.ssh
           ssh-keyscan -p $SSH_PORT $SSH_HOST >> ~/.ssh/known_hosts
           rsync -avz -e "ssh -p $SSH_PORT" --delete-after build/ $SSH_USER@$SSH_HOST:$REMOTE_PATH
