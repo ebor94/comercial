@@ -10,6 +10,7 @@ import Sidebar from './components/Sidebar/sidebar';
 import { useState } from 'react';
 /* import NavBar from './components/navBar/NavBar'; */
 import Orderlist from './components/Order/Orderlist';
+import ProtectedRoute from './components/ProtectedRoute';
 
  //?LCODIGO=0010513436&cte=0000109476
 
@@ -50,7 +51,15 @@ const MainLayout = () => {
           <Routes>         
           <Route path="/" element={<Login />} />
           <Route path="/Home/" element={<Home />} />
-          <Route path="/listquote/" element={<Orderlist />} />
+          {/* <Route path="/listquote/" element={<Orderlist />} /> */}
+          <Route
+          path="/listquote"
+          element={
+            <ProtectedRoute>
+              <Orderlist />
+            </ProtectedRoute>
+          }
+        />
           <Route path="/quote/:lcodigo/:cte" element={<Order />} />
           <Route path="/quotegte/:lcodigo/:cte" element={<OrderGte />} />
        </Routes>
