@@ -52,6 +52,7 @@ const Login = () => {
         setIntentos(intentos - 1)
         if(intentos <= 0){
           setError(`Usuario Bloqueado validar Con TI para desbloquear.`);
+          setIntentos(0)
         }else{
           setError(`Nombre de usuario o contraseña incorrectos, te quedan ${intentos}.`);
         }

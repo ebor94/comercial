@@ -195,10 +195,13 @@ if (error) {
                 quote={data.documento}
                 nameCte={data.nombre}
                 />
-                <GenerateLink
+                {data.margeninterno >= 42 ? <GenerateLink
                 cte={data.identificacion}
                 quote={data.documento}                
-                />
+                />: data.aprobgte === "1" ? <GenerateLink
+                cte={data.identificacion}
+                quote={data.documento}                
+                />: null}
                     
               </ButtonGroup>
             </td> 
