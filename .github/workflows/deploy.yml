@@ -55,6 +55,6 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
-          REMOTE_PATH: ${{ secrets.REMOTE_PATH }}
+          REMOTE_PATH: ${{ secrets.REMOTE_PATH25 }}
         run: |
           rsync -avz -e "ssh -p $SSH_PORT" --delete-after --exclude '.htaccess' build/ $SSH_USER@$SSH_HOST:$REMOTE_PATH
