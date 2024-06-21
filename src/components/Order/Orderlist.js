@@ -22,6 +22,7 @@ export default function Orderlist() {
   const [quotes, setQuotes] = useState([]);  
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const margenEsperado = 43
 
   
   useEffect(() => {
@@ -195,7 +196,7 @@ if (error) {
                 quote={data.documento}
                 nameCte={data.nombre}
                 />
-                {data.margeninterno >= 42 ? <GenerateLink
+                {data.margeninterno >= margenEsperado ? <GenerateLink
                 cte={data.identificacion}
                 quote={data.documento}                
                 />: data.aprobgte === "1" ? <GenerateLink
@@ -205,7 +206,7 @@ if (error) {
                     
               </ButtonGroup>
             </td> 
-            <td  className="mb-2">{data.margeninterno >= 42 ? <FaCircleCheck  className="mb-2" style={{ color: 'green', fontSize: '24px' }}/> : <MdCancel  className="mb-2" style={{ color: 'red', fontSize: '24px' }}/>}</td>           
+            <td  className="mb-2">{data.margeninterno >= margenEsperado ? <FaCircleCheck  className="mb-2" style={{ color: 'green', fontSize: '24px' }}/> : <MdCancel  className="mb-2" style={{ color: 'red', fontSize: '24px' }}/>}</td>           
             </tr>
           ))}
        
