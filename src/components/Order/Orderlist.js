@@ -14,6 +14,7 @@ import Margin from './MarginAliado';
 import RenderIcon from './RenderIcon';
 import NavBar from '../navBar/NavBar';
 import GenerateLink from '../Buttons/GenerateLink';
+import { MdHelp } from "react-icons/md";
 
 
 
@@ -134,7 +135,7 @@ if (error) {
   return (
     <><NavBar />
     <Container >
-    <div className='mb-5 text-center'><h2 style={{color : "#615f5f"}}>Proformas a Gestionar</h2></div>
+    <div className='mb-5 text-center'><h2 style={{color : "#615f5f"}}>Proformas a Gestionar</h2><br/><a href='https://docs.google.com/document/d/1wIfReNwk5ly5mzNbCv40vXqnlBQkveV0BjX_MTxPJLQ/edit?usp=sharing'><MdHelp /></a> </div>
     <Row className="justify-content-md-center">
     <Table striped bordered responsive>
       <thead>
