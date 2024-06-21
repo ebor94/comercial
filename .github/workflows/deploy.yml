@@ -12,6 +12,14 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          # Cambia esta clave para forzar la creación de un nuevo caché
+          key: ${{ runner.os }}-npm-cache-${{ hashFiles('**/package-lock.json') }}-v2
+          restore-keys: |
+            ${{ runner.os }}-npm-cache-
 
       - name: Set up Node.js
         uses: actions/setup-node@v2
@@ -55,6 +63,6 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_USER: ${{ secrets.SSH_USER }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
-          REMOTE_PATH:  ${{ secrets.REMOTE_PATH25 }}
+          REMOTE_PATHX:  ${{ secrets.REMOTE_PATH25 }}
         run: |
-          rsync -avz -e "ssh -p $SSH_PORT" --delete-after --exclude '.htaccess' build/ $SSH_USER@$SSH_HOST:$REMOTE_PATH
+          rsync -avz -e "ssh -p $SSH_PORT" --delete-after --exclude '.htaccess' build/ $SSH_USER@$SSH_HOST:$REMOTE_PATHX
