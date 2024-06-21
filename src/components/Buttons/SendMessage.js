@@ -15,13 +15,14 @@ function SendMessage({data}) {
     const [modalMessage, setModalMessage] = useState('');
     const [isLoading, setLoading] = useState(false);
     const url = window.location.origin;
+    const margenEsperado = 43;
 
 const handleClickSendMessage = async (data) => {
     console.log(data)
     setLoading(true);   
  const {telefono, margeninterno, aprobgte,  documento ,identificacion} = data;
     if(telefono){
-        if(margeninterno < 42 && !aprobgte ){
+        if(margeninterno < margenEsperado && !aprobgte ){
             let messageApproved = `la proforma ${documento} necesita ser aprobada porque no cumple con el margen esperado ver proforma en ${url}/quotegte/${documento}/${identificacion}`;
             let telAprobacion  = await  TelDirComercial()
             let resmessage = await sendMessage(telAprobacion,messageApproved); 
