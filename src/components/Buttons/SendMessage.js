@@ -24,11 +24,12 @@ const handleClickSendMessage = async (data) => {
     if(telefono){
         if(margeninterno < margenEsperado && !aprobgte ){
             let messageApproved = `la proforma ${documento} necesita ser aprobada porque no cumple con el margen esperado ver proforma en ${url}/quotegte/${documento}/${identificacion}`;
-            let telAprobacion  = await  TelDirComercial()
-            let resmessage = await sendMessage(telAprobacion,messageApproved); 
+            //let telAprobacion  = await  TelDirComercial()
+           // let resmessage = await sendMessage(telAprobacion,messageApproved); 
+            let resmessage = sendMessageGoogle(messageApproved);
             const result =  JSON.parse(resmessage)
             console.log(result)
-            if(result.sent){
+            if(result.status == 200){
                 setModalMessage(`proforma enviada aprobación, porque no cumple con el margen esperado `)
                 setLoading(false);
                 const service = await serviceInvoice("11",documento,"0","0","","",""); // actualizamos la apertura del cliente 
@@ -90,6 +91,16 @@ const sendMessage = async(phoneNumber, message) =>{
      .then((response) => response.text())
      .then((result) =>{      
        //console.log(result)
+       return result
+     })
+     .catch((error) => console.error(error));    
+   }
+   const sendMessageGoogle = async( message) =>{
+    const raw = { "param1": "kkmRkgAAAAE", "message": message, "key":"AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI", "token": "q6JbtPP4lcF0qpw5gpepgUevLzJ8xwVCbLlQZtyjGhc"  }
+     return await fetch("https://lilix.ceramicaitalia.com:3001/mensajeria/google", {method: "POST", headers: {'Content-Type': 'application/json'}, body : raw})
+     .then((response) => response.text())
+     .then((result) =>{      
+       //console.log(phoneNumber)
        return result
      })
      .catch((error) => console.error(error));    
