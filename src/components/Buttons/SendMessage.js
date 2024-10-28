@@ -29,7 +29,7 @@ const handleClickSendMessage = async (data) => {
             let resmessage = sendMessageGoogle(messageApproved);
             const result =  JSON.parse(resmessage)
             console.log(result)
-            if(result.status == 200){
+            if(result.status === 200){
                 setModalMessage(`proforma enviada aprobación, porque no cumple con el margen esperado `)
                 setLoading(false);
                 const service = await serviceInvoice("11",documento,"0","0","","",""); // actualizamos la apertura del cliente 
