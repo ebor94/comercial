@@ -26,7 +26,7 @@ const handleClickSendMessage = async (data) => {
             let messageApproved = `la proforma ${documento} necesita ser aprobada porque no cumple con el margen esperado ver proforma en ${url}/quotegte/${documento}/${identificacion}`;
             //let telAprobacion  = await  TelDirComercial()
            // let resmessage = await sendMessage(telAprobacion,messageApproved); 
-            let resmessage = sendMessageGoogle(messageApproved);
+            let resmessage = await sendMessageGoogle(messageApproved);
             const result =  JSON.parse(resmessage)
             console.log(result)
             if(result.status === 200){
