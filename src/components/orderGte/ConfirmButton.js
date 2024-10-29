@@ -27,7 +27,7 @@ const ConfirmButton = ({offer, phoneNumber,  phoneNumberSeller, colorButtonConfi
     handleShow();
   };
   const sendMessage = async(phoneNumber, message) =>{
-   const raw = { "param1": "kkmRkgAAAAE", "message": message, "key":"AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI", "token": "q6JbtPP4lcF0qpw5gpepgUevLzJ8xwVCbLlQZtyjGhc"  }
+   const raw = JSON.stringify({ "param1": "kkmRkgAAAAE", "message": message, "key":"AIzaSyDdI0hCZtE6vySjMm-WEfRq3CPzqKqqsHI", "token": "q6JbtPP4lcF0qpw5gpepgUevLzJ8xwVCbLlQZtyjGhc"  })
     return await fetch("https://lilix.ceramicaitalia.com:3001/mensajeria/google", {method: "POST", headers: {'Content-Type': 'application/json'}, body : raw})
     .then((response) => response.text())
     .then((result) =>{      
